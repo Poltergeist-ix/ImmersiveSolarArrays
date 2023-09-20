@@ -1,0 +1,47 @@
+****************************
+
+Remove the extra line with workshop id
+
+****************************
+
+[code][h2] This is a BETA TEST branch [/h2][/code]
+
+****************************
+
+[h1]Description[/h1]
+Immersive Solar Arrays (ISA) adds new items and lets you harvest solar power for the needs of your base!
+
+[h1]Required Mods[/h1]
+You need to have [URL=https://steamcommunity.com/workshop/filedetails/?id=2969455858]TARGET SQUARE ON LOAD COMMANDS[/url] added to your save mod list if you want to spawn special crates with this mod. It is rather safe to add / remove on existing saves.
+
+[h1]Links with useful resources[/h1]
+[URL=https://github.com/radx5Blue/ImmersiveSolarArrays/wiki]Mod's wiki pages on github[/url]
+[URL=https://steamcommunity.com/linkfilter/?url=https://discord.gg/denwquecsf]Original Mod's Discord Server Link[/URL]
+[URL=https://steamcommunity.com/sharedfiles/filedetails/?id=2623458493]Original Mod's Workshop Page[/url]
+
+[h1]Notice![/h1]
+[i][list]
+[*] Use only one version of the mod. Latest mod id is "ISA_41". If you have installed mods with same mod_id then you won't be able to select which one is loaded reliably.
+[*] Mods that delete changes made to default actions like inventory transfer and generator interactions can cause problems.
+[*] Enable x2 Textures in options or tiles will appear wrong in world.
+[*] [URL=https://steamcommunity.com/app/108600/discussions/0/3767859894285799675/]Missing recipes link[/URL]
+[*] [URL=https://steamcommunity.com/workshop/filedetails/discussion/2857548524/3463857594042602200/]MP troubleshooting link[/URL]
+[*] If you have problems downloading the mod with steam, you can find the latest version of the mod on GitHub.
+[*] Some options require game reload, Stash Houses might need a new game to work properly.
+[*] It's advised to test this mod in debug before adding it to your modlist, if you add it to an existing save then you should create a save backup.
+[/list][/i]
+[h1]I found a bug that's not covered above, what to do now?[/h1]
+First of all, you should try to reproduce the bug with only this mod enabled and write the steps necessary to reproduce the bug. If you can't reproduce it with only this mod then try to limit it to a specif set of mods. Check your logs for errors and post them with any other relevant information.
+
+[code][url=https://discord.gg/SReMnbV4V7][img]https://raw.githubusercontent.com/Poltergeistzx/Project-Zomboid/main/images/PZWorkshopBanner.png[/img][/url]
+[url=https://ko-fi.com/P5P6JASON][img]https://raw.githubusercontent.com/Poltergeistzx/Project-Zomboid/main/images/Ko-fi-01.png[/img][/url][/code]
+[code]
+[h3]Contributors[/h3]
+Big thank you to everybody who has contributed to this mod, through various stages of it's existence.
+[table]
+[h3]Mod info[/h3]
+[tr][td]	Permissions:	[/td][td]	[url=http://theindiestone.com/forums/index.php/topic/2530-mod-permissions/?p=36477]Give credit[/url]	[/td][/tr]
+[tr][td]	Workshop ID:	[/td][td]	2857548524	[/td][/tr]
+[tr][td]	Workshop ID:	[/td][td]	2969478819	[/td][/tr]
+[tr][td]	Mod ID:	[/td][td]	ISA_41	[/td][/tr]
+[/table][/code]
