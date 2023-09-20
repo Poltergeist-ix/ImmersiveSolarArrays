@@ -1,8 +1,8 @@
 Moveables_TH = {
-    Battery_Bank = "ธนาคารแบตเตอรี่",
-    Solar_Roof_Tile = "แผงโซลาร์เซลล์แบบแบน",
-    Wall_Mounted_Solar_Panel = "แผงโซลาร์เซลล์ติดผนัง",
+    Battery_Bank = "ฐานเก็บแบตเตอรี่ประจุไฟ",
+    Solar_Roof_Tile = "แผงโซลาร์เซลล์แบบวางราบ",
+    Wall_Mounted_Solar_Panel = "แผงโซลาร์เซลล์แบบติดผนัง",
     Floor_Mounted_Solar_Panel = "แผงโซลาร์เซลล์แบบตั้งพื้น",
-    Failsafe_Trigger = "ทริกเกอร์ที่ไม่ปลอดภัย",
-    Solar_Box = "กล่องพลังงานแสงอาทิตย์",
+    Failsafe_Trigger = "สวิตช์ป้องกันไฟตก",
+    Solar_Box = "กล่องอุปกรณ์โซลาร์เซลล์",
 }
