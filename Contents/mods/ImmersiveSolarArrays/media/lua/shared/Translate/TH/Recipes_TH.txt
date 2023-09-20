@@ -1,4 +1,4 @@
-Recipes_EN {
+Recipes_TH = {
     Recipe_Make_DIY_Battery = "ประดิษฐ์แบตเตอร์รี่เก็บประจุไฟ",
     Recipe_WireCarBattery = "ต่อสายไฟแบตเตอร์รี่รถ",
     Recipe_UnwireCarBattery = "ถอดสายไฟแบตเตอรี่รถ",
