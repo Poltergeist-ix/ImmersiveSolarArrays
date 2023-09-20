@@ -1,11 +1,12 @@
---
-Stash_ISA_Stash_RiversideW1_t1 = "เห็นรถบรรทุกออกไป"
-Stash_ISA_Stash_RiversideW1_t2 = "พวกเขาจะต้องอยู่ในฟาร์มใกล้เคียง"
-Stash_ISA_Stash_RosewoodE1_t1 = "อันตราย: ผู้รอดชีวิตอาจกำลังหลบหนีนักโทษ"
-Stash_ISA_Stash_RosewoodE1_t2 = "ฐานเพื่อนบ้านถูกทิ้งร้าง"
-Stash_ISA_Stash_Muldraugh1_t1 = "ตายอยู่ข้างใน"
-Stash_ISA_Stash_Muldraugh1_t2 = "นี่คือปีเตอร์"
-Stash_ISA_Stash_Westpoint1_t1 = "ยินดีต้อนรับสู่"
-Stash_ISA_Stash_Westpoint1_t2 = "สมองอร่อย"
-Stash_ISA_Stash_Westpoint1_t3 = "ทุกเมืองมีคนสะสม ฉันแค่ต้องค้นหาว่าพวกเขาอาศัยอยู่ที่ไหน"
-Stash_ISA_Stash_Louisville1_t1 = "พรุ่งนี้เราจะปล้นร้าน"
+Stash_TH = {
+	Stash_ISA_Stash_Louisville1_t1 = "พรุ่งนี้ไปยกเค้าร้านนี้กัน!",
+	Stash_ISA_Stash_Muldraugh1_t1 = "มีคนตายในนี้",
+	Stash_ISA_Stash_Muldraugh1_t2 = "ปีเตอร์อยู่ที่นี่",
+	Stash_ISA_Stash_RiversideW1_t1 = "เห็นรถบรรทุกวิ่งออกมาจากทางนี้",
+	Stash_ISA_Stash_RiversideW1_t2 = "พวกนั้นน่าจะอยู่ที่ฟาร์มใกล้ๆ ละแวกนี้",
+	Stash_ISA_Stash_RosewoodE1_t1 = "อันตราย: มีคนในกลุ่มผู้รอดชีวิตหนีออกมา",
+	Stash_ISA_Stash_RosewoodE1_t2 = "ฐานของเพื่อนบ้านคงร้างแล้ว",
+	Stash_ISA_Stash_Westpoint1_t1 = "ยินดีต้อนรับสู่",
+	Stash_ISA_Stash_Westpoint1_t2 = "เนื้อสมองอันโอชะ",
+	Stash_ISA_Stash_Westpoint1_t3 = "ไปเมืองไหนก็เจอแต่คนเก็บของหนี! ฉันอยากตามหาว่าพวกเขาไปตั้งรกรากที่ไหนกัน?",
+}
