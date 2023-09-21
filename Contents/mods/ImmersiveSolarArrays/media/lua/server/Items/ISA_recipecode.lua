@@ -9,6 +9,8 @@ local isa = require("ISAUtilities")
 local Sandbox = SandboxVars.ISA
 local RecipeDef = {}
 
+function returnFalse() return false end
+
 --- ISCraftAction:addOrDropItem
 local function addOrDrop(character, item)
 	local inv = character:getInventory()
@@ -37,10 +39,6 @@ function Recipe.GetItemTypes.wireCarBattery(scriptItems)
 	for fullType,_ in pairs(RecipeDef.carBatteries) do
 		scriptItems:add(manager:getItem(fullType))
 	end
-end
-
-function Recipe.OnCanPerform.ISA_expandedRecipes(recipe, playerObj, item)
-	return Sandbox.enableExpandedRecipes
 end
 
 function Recipe.OnCreate.ISA_wireCarBattery(items, result, player)
@@ -154,6 +152,7 @@ function RecipeDef.OnInitGlobalModData()
 			local recipe = manager:getRecipe(recipeName)
 			if recipe then
 				recipe:setIsHidden(false)
+				recipe:setCanPerform(nil)
 			end
 		end
 	end
