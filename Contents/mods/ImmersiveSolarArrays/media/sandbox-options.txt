@@ -45,7 +45,7 @@ option ISA.LRMMisc {
 }
 option ISA.ConnectPanelMin {
 	page = ISA, translation = ISA_ConnectPanelMin,
-	type = integer, min = 1, max = 1000, default = 120,
+	type = integer, min = 1, max = 1440, default = 10,
 }
 option ISA.enableExpandedRecipes {
     page = ISA, translation = ISA_enableExpandedRecipes,
