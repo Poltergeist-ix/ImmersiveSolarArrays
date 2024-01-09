@@ -1,15 +1,13 @@
-# List of people who helped make this mod
+# List of contributors
 
-## Creators, Maintainers
+## Programming
 RadX5: original creator
-Poltergeist: maintainer, full mod rework
+Poltergeist: full mod rework
 
-## Contributors
+## Other Contributors
 kattiko: development in initial stages
 deacon: recipes
-
-## Testers
-CarlosRojasCu
+CarlosRojasCu: testing
 
 ## Translators
 Kev1931: Italian
@@ -17,3 +15,4 @@ Wailwolf: French
 gusperroni: PTBR
 Danixu: Spanish
 vs863129: Chinese
+Blanc Bunny Bandit: Thai
