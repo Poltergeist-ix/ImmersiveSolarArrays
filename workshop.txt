@@ -85,4 +85,4 @@ description=Workshop ID: 2969478819
 
 description=Mod ID: ISA_41
 tags=Build 41;Building;Multiplayer
-visibility=unlisted
+visibility=public
