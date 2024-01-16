@@ -49,7 +49,7 @@ function ISAWorldSpawns.fill(isoObject,sprite)
         container:AddItem("ISA.ISAInverter")
         container:AddItem("ISA.ISAMag1")
     else
-        ItemPicker.fillContainer(container,getPlayer())
+        ItemPickerJava.fillContainer(container,getPlayer())
     end
     if overlayType then
         isoObject:setOverlaySprite(overlayType)
