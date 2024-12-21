@@ -1,0 +1,19 @@
+module ISA {
+    craftRecipe WireCarBattery {
+        timedAction = MakingElectrical,
+        time = 100,
+        needToBeLearn = true,
+        category = Electrical,
+        skillRequired = Electricity:3,
+        onCreate = Recipe.OnCreate.ISA_wireCarBattery,
+        xpAward = Electricity:1,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+            item 1 [Base.ElectricWire],
+        }
+        outputs {
+            item 1 ISA.WiredCarBattery,
+        }
+    }
+}
