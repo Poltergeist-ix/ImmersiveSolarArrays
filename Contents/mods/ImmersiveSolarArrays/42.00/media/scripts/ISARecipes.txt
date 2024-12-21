@@ -1,9 +1,9 @@
 module ISA {
     craftRecipe WireCarBattery {
         timedAction = MakingElectrical,
-        time = 100,
-        needToBeLearn = true,
+        time = 80,
         category = Electrical,
+        needToBeLearn = true,
         skillRequired = Electricity:3,
         onCreate = Recipe.OnCreate.ISA_wireCarBattery,
         xpAward = Electricity:1,
@@ -11,9 +11,63 @@ module ISA {
         inputs {
             item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
             item 1 [Base.ElectricWire],
+            item 1 tags[CarBattery] mode:destroy flags[NoBrokenItems],
         }
         outputs {
             item 1 ISA.WiredCarBattery,
         }
     }
+    craftRecipe UnWireCarBattery {
+        timedAction = MakingElectrical,
+        time = 80,
+        category = Electrical,
+        needToBeLearn = true,
+        skillRequired = Electricity:3,
+        onCreate = Recipe.OnCreate.ISA_unwireCarBattery,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+            item 1 [ISA.WiredCarBattery] mode:destroy flags[MayDegrade],
+        }
+        outputs {
+
+        }
+    }
+    craftRecipe Make DIY Battery {
+        timedAction = MakingElectrical,
+        time = 80,
+        category = Electrical,
+        needToBeLearn = true,
+        skillRequired = Electricity:5,
+        onCreate = Recipe.OnCreate.ISA_createDiyBattery,
+        xpAward = Electricity:1,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+            item 1 tags[CarBattery] mode:destroy flags[NoBrokenItems],
+            item 1 [Base.ElectronicsScrap],
+        }
+        outputs {
+            item 1 ISA.DIYBattery,
+        }
+    }
+    
+    /*
+    craftRecipe Make Solar Roof Tile {
+        timedAction = MakingElectrical,
+        time = 120,
+        category = Electrical,
+        needToBeLearn = true,
+        skillRequired = Electricity:3,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+            item 3 [Base.ElectricWire],
+            item 1 [ISA.SolarPanel],
+        }
+        outputs {
+            item 1 Moveables.solarmod_tileset_01_8,
+        }
+    }
+    */
 }
