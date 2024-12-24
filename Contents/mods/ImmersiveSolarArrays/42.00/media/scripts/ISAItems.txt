@@ -32,6 +32,7 @@ module ISA
         ConditionMax = 100,
         WorldStaticModel = CarBattery,
         ISA_maxCapacity = 200,
+        ISA_BatteryDegrade = 0.033,
     }
     item SuperBattery {
         Weight	=	8,
@@ -45,6 +46,7 @@ module ISA
         ConditionMax = 100,
         WorldStaticModel = CarBattery,
         ISA_maxCapacity = 400,
+        ISA_BatteryDegrade = 0.033,
     }
     item WiredCarBattery {
         Type	=	Drainable,
@@ -72,9 +74,10 @@ module ISA
         ConditionMax = 100,
         WorldStaticModel = CarBattery,
         ISA_maxCapacity = 200,
+        ISA_BatteryDegrade = 0.125,
     }
     item PowerBank {
-        Type = Moveable,
+        Type = Normal,
         DisplayName		= PowerBank,
         DisplayCategory = Electronics,
         Tooltip = Tooltip_Generator,

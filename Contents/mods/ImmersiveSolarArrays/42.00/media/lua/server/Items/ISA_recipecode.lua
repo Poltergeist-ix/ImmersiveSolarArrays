@@ -61,8 +61,8 @@ function Recipe.OnCreate.ISA_wireCarBattery(items, result, player)
 
 			resultData.ISA_maxCapacity = roundCapacity(batteryInfo.ah * qualityMod)
 			resultData.ISA_BatteryDegrade = batteryInfo.degrade / qualityMod
-			result:setUsedDelta(0)
-			--result:setUsedDelta(carBattery:getUsedDelta())
+			-- result:setCurrentUsesFloat(0)
+			result:setCurrentUsesFloat(carBattery:getCurrentUsesFloat())
 			result:setCondition(carBattery:getCondition() - ZombRand(1,12 - skillMod))
 
 			break
@@ -85,8 +85,8 @@ function Recipe.OnCreate.ISA_unwireCarBattery(items, result, player)
 			end
 			local skillMod = math.min(10, ZombRand(1 + player:getPerkLevel(Perks.Electricity)))
 
-			item:setUsedDelta(0)
-			--item:setUsedDelta(wiredBattery:getUsedDelta())
+			-- item:setCurrentUsesFloat(0)
+			item:setCurrentUsesFloat(wiredBattery:getCurrentUsesFloat())
 			item:setCondition(wiredBattery:getCondition() - ZombRand(1,12 - skillMod))
 			addOrDrop(player,item)
 
@@ -105,7 +105,7 @@ function Recipe.OnCreate.ISA_createDiyBattery(items, result, player)
 		local item = items:get(i)
 		local maxCapacity = item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()]
 		if maxCapacity then
-			--addUpDelta = addUpDelta + item:getUsedDelta()
+			-- addUpDelta = addUpDelta + item:getCurrentUsesFloat()
 			sourceItems = sourceItems + 1
 			sumCapacity = sumCapacity + maxCapacity
 			sumCondition = sumCondition + item:getCondition()
@@ -115,8 +115,8 @@ function Recipe.OnCreate.ISA_createDiyBattery(items, result, player)
 	local resultData = result:getModData()
 	resultData.ISA_maxCapacity = roundCapacity(sumCapacity * Sandbox.DIYBatteryMultiplier / 100)
 
-	result:setUsedDelta(0)
-	--result:setUsedDelta(addUpDelta / tick)
+	result:setCurrentUsesFloat(0)
+	--result:setCurrentUsesFloat(addUpDelta / tick)
 	result:setCondition(math.floor(sumCondition / sourceItems))
 end
 

@@ -202,7 +202,7 @@ end
 
 --used to be overlay needed to be reset here, will need to be updated in v42 probably
 function PbSystem.ISInventoryTransferAction_transferItem(ISInventoryTransferAction_transferItem)
-    return function(self,item,...)
+    return function(self,item)
         --check if item is valid battery, and not moved already
         local maxCapacity = item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()]
         if maxCapacity and not self.destContainer:contains(item) then
@@ -212,11 +212,12 @@ function PbSystem.ISInventoryTransferAction_transferItem(ISInventoryTransferActi
             local take = src and isa.WorldUtil.Types[src:getTextureName()] == "Powerbank"
             local put = dest and isa.WorldUtil.Types[dest:getTextureName()] == "Powerbank"
             if take or put then
-                local success, result = pcall(ISInventoryTransferAction_transferItem,self,item,...)
+                local success, result = pcall(ISInventoryTransferAction_transferItem,self,item)
 
                 if self.destContainer:contains(item) then
                     local capacity = maxCapacity * (1 - math.pow((1 - (item:getCondition()/100)),6))
-                    local charge = capacity * item:getUsedDelta()
+                    ---TODO not send charge
+                    local charge = capacity * item:getCurrentUsesFloat()
                     if take then
                         PbSystem.instance:sendCommand(self.character,"Battery", { { x = src:getX(), y = src:getY(), z = src:getZ()} ,"take", charge, capacity})
                     end
@@ -234,7 +235,7 @@ function PbSystem.ISInventoryTransferAction_transferItem(ISInventoryTransferActi
             end
         end
 
-        return ISInventoryTransferAction_transferItem(self,item,...)
+        return ISInventoryTransferAction_transferItem(self,item)
     end
 end
 
@@ -268,9 +269,9 @@ function PbSystem.updateBanksForClient()
             local items = isopb:getContainer():getItems()
             for v=0,items:size()-1 do
                 local item = items:get(v)
-                --all items should be valid batteries and drainable here already
+                --FIXME all items should be valid batteries and drainable here already
                 if item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()] then
-                    item:setUsedDelta(delta)
+                    item:setCurrentUsesFloat(delta)
                 end
             end
         end

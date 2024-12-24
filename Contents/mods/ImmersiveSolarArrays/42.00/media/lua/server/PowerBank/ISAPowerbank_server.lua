@@ -131,16 +131,16 @@ function SPowerbank:chargeBatteries(container,charge)
     local items = container:getItems()
     for i=0,items:size()-1 do
         local item = items:get(i)
-        item:setUsedDelta(charge)
+        item:setCurrentUsesFloat(charge)
     end
 end
 
-SPowerbank.batteryDegrade = {
-    ["WiredCarBattery"] = 7, --ModData
-    ["DIYBattery"] = 0.125,
-    ["DeepCycleBattery"] = 0.033,
-    ["SuperBattery"] = 0.033,
-}
+-- SPowerbank.batteryDegrade = {
+--     ["WiredCarBattery"] = 7, --ModData
+--     ["DIYBattery"] = 0.125,
+--     ["DeepCycleBattery"] = 0.033,
+--     ["SuperBattery"] = 0.033,
+-- }
 
 --condition is an int
 function SPowerbank:degradeBatteries(container)
@@ -152,7 +152,7 @@ function SPowerbank:degradeBatteries(container)
     local items = container:getItems()
     for i=0,items:size()-1 do
         local item = items:get(i)
-        local degradeVal = item:getModData()["ISA_BatteryDegrade"] or self.batteryDegrade[item:getType()]
+        local degradeVal = item:getModData()["ISA_BatteryDegrade"] --or self.batteryDegrade[item:getType()]
         if degradeVal ~= nil then
             -- average of 1M rolls / 10: 5.5 / 3: 2 / 1.6: 1.37364 / 0.9: 0.90082 / 0.033: 0.03280
             degradeVal = degradeVal * mod
@@ -181,7 +181,7 @@ function SPowerbank:handleBatteries(container)
                 batteries = batteries + 1
                 local cap = maxCapType * (1 - math.pow((1 - (condition/100)),6))
                 capacity = capacity + cap
-                charge = charge + cap * item:getUsedDelta()
+                charge = charge + cap * item:getCurrentUsesFloat()
             end
         end
     end
@@ -335,15 +335,15 @@ function SPowerbank:updateSprite(chargemod)
 end
 
 function SPowerbank:createGenerator()
-    self:noise("Creating Generator")
-    local square = self:getSquare()
-    local generator = IsoGenerator.new(instanceItem("ISA.PowerBank_test"), square:getCell(), square) --FIXME test invisible
-    generator:setSprite(nil)
-    generator:transmitCompleteItemToClients()
-    generator:setCondition(100)
-    generator:setFuel(100)
-    generator:setConnected(true)
-    generator:getCell():addToProcessIsoObjectRemove(generator)
+    -- self:noise("Creating Generator")
+    -- local square = self:getSquare()
+    -- local generator = IsoGenerator.new(instanceItem("ISA.PowerBank_test"), square:getCell(), square) --FIXME test invisible
+    -- generator:setSprite(nil)
+    -- generator:transmitCompleteItemToClients()
+    -- generator:setCondition(100)
+    -- generator:setFuel(100)
+    -- generator:setConnected(true)
+    -- generator:getCell():addToProcessIsoObjectRemove(generator)
 end
 
 function SPowerbank:removeGenerator()
