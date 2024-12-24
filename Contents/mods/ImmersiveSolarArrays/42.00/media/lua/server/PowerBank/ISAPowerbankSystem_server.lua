@@ -44,6 +44,9 @@ function PbSystem:OnObjectAdded(isoObject)
     local isaType = isa.WorldUtil.getType(isoObject)
     if not isaType then return end
     if isaType == "Powerbank" and self:isValidIsoObject(isoObject) then
+        ---FIXME test MP sync
+        isoObject:createContainersFromSpriteProperties()
+        isoObject():getContainer():setExplored(true)
         self:loadIsoObject(isoObject)
     elseif isaType == "Panel" then
         local modData = isoObject:getModData()
