@@ -337,7 +337,7 @@ end
 function SPowerbank:createGenerator()
     self:noise("Creating Generator")
     local square = self:getSquare()
-    local generator = IsoGenerator.new(nil, square:getCell(), square)
+    local generator = IsoGenerator.new(instanceItem("ISA.PowerBank_test"), square:getCell(), square) --FIXME test invisible
     generator:setSprite(nil)
     generator:transmitCompleteItemToClients()
     generator:setCondition(100)

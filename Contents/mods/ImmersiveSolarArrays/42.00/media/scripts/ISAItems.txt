@@ -2,8 +2,7 @@ module ISA
 {
     imports { Base }
 
-        item SolarPanel
-    {
+    item SolarPanel {
         Weight	=	5,
         Type	=	Normal,
         UseWhileEquipped	=	FALSE,
@@ -12,8 +11,7 @@ module ISA
         MetalValue = 1,
         WorldStaticModel = ISA.SolarPanelModel,
     }
-        item ISAInverter
-    {
+    item ISAInverter {
         Weight	=	5,
         Type	=	Normal,
         UseWhileEquipped	=	FALSE,
@@ -22,8 +20,7 @@ module ISA
         MetalValue = 1,
         WorldStaticModel = CarBatteryCharger,
     }
-        item DeepCycleBattery
-    {
+    item DeepCycleBattery {
         Weight	=	6,
         Type	=	Drainable,
         UseDelta	=	0.00001,
@@ -36,8 +33,7 @@ module ISA
         WorldStaticModel = CarBattery,
         ISA_maxCapacity = 200,
     }
-        item SuperBattery
-    {
+    item SuperBattery {
         Weight	=	8,
         Type	=	Drainable,
         UseDelta	=	0.00001,
@@ -50,8 +46,7 @@ module ISA
         WorldStaticModel = CarBattery,
         ISA_maxCapacity = 400,
     }
-    item WiredCarBattery
-    {
+    item WiredCarBattery {
         Type	=	Drainable,
         DisplayName	=	WiredCarBattery,
         Icon	=	CarBattery,
@@ -65,8 +60,7 @@ module ISA
         ISA_maxCapacity = 50,
         ISA_BatteryDegrade = 8,
     }
-        item DIYBattery
-    {
+    item DIYBattery {
         Type	=	Drainable,
         DisplayName	=	DIY Battery,
         Icon	=	CarBattery,
@@ -79,37 +73,46 @@ module ISA
         WorldStaticModel = CarBattery,
         ISA_maxCapacity = 200,
     }
-    item PowerBank
-    {
+    item PowerBank {
         Type = Moveable,
-        Icon			= default,
-        DisplayName		= Moveable,
+        DisplayName		= PowerBank,
         DisplayCategory = Electronics,
+        Tooltip = Tooltip_Generator,
+        Tags = HeavyItem;Generator;HasMetal;IgnoreZombieDensity;ShowCondition,
+        ConditionLowerChanceOneIn = 999,
         WorldObjectSprite = solarmod_tileset_01_0,
     }
-    item SolarPanelFlat
-    {
+    /*
+    test sprite hidden
+    */
+    item PowerBank_test {
+        Type = Normal,
+        DisplayName		= PowerBank,
+        DisplayCategory = Electronics,
+        Tooltip = Tooltip_Generator,
+        Tags = HeavyItem;Generator;HasMetal;IgnoreZombieDensity;ShowCondition,
+        ConditionLowerChanceOneIn = 999,
+        WorldObjectSprite = appliances_misc_01_8,
+    }
+    item SolarPanelFlat {
         Type = Moveable,
         DisplayName		= Moveable,
         DisplayCategory = Electronics,
         WorldObjectSprite = solarmod_tileset_01_8,
     }
-    item SolarPanelWall
-    {
+    item SolarPanelWall {
         Type = Moveable,
         DisplayName		= Moveable,
         DisplayCategory = Electronics,
         WorldObjectSprite = solarmod_tileset_01_6,
     }
-    item SolarPanelMounted
-    {
+    item SolarPanelMounted {
         Type = Moveable,
         DisplayName		= Moveable,
         DisplayCategory = Electronics,
         WorldObjectSprite = solarmod_tileset_01_9,
     }
-    item SolarFailsafe
-    {
+    item SolarFailsafe {
         Type = Moveable,
         DisplayName		= Moveable,
         DisplayCategory = Electronics,
@@ -117,8 +120,7 @@ module ISA
     }
 
     /**************************** Literature **********************************/
-    item ISAMag1
-    {
+    item ISAMag1 {
         DisplayCategory = SkillBook,
         Weight	=	0.1,
         Type	=	Literature,
@@ -131,8 +133,7 @@ module ISA
     }
 
     /**************************** Maps **********************************/
-    item Stash_RiversideW1
-    {
+    item Stash_RiversideW1 {
         Type = Map,
         DisplayCategory = Cartography,
         DisplayName = Map,
@@ -141,8 +142,7 @@ module ISA
         Map = ISA_Stash_RiversideW1,
         WorldStaticModel = Map,
     }
-    item Stash_RosewoodE1
-    {
+    item Stash_RosewoodE1 {
         Type = Map,
         DisplayCategory = Cartography,
         DisplayName = Map,
@@ -151,8 +151,7 @@ module ISA
         Map = ISA_Stash_RosewoodE1,
         WorldStaticModel = Map,
     }
-    item Stash_Louisville1
-    {
+    item Stash_Louisville1 {
         Type = Map,
         DisplayCategory = Cartography,
         DisplayName = Map,
