@@ -335,15 +335,15 @@ function SPowerbank:updateSprite(chargemod)
 end
 
 function SPowerbank:createGenerator()
-    -- self:noise("Creating Generator")
-    -- local square = self:getSquare()
-    -- local generator = IsoGenerator.new(instanceItem("ISA.PowerBank_test"), square:getCell(), square) --FIXME test invisible
-    -- generator:setSprite(nil)
-    -- generator:transmitCompleteItemToClients()
-    -- generator:setCondition(100)
-    -- generator:setFuel(100)
-    -- generator:setConnected(true)
-    -- generator:getCell():addToProcessIsoObjectRemove(generator)
+    self:noise("Creating Generator")
+    local square = self:getSquare()
+    local generator = IsoGenerator.new(instanceItem("ISA.PowerBank_test"), square:getCell(), square) --FIXME test invisible
+    generator:setSprite(nil)
+    generator:transmitCompleteItemToClients()
+    generator:setCondition(100)
+    generator:setFuel(100)
+    generator:setConnected(true)
+    generator:getCell():addToProcessIsoObjectRemove(generator)
 end
 
 function SPowerbank:removeGenerator()

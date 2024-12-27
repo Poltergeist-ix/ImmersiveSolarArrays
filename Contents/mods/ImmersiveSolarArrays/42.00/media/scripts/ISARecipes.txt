@@ -4,6 +4,7 @@ module ISA {
         time = 80,
         category = Electrical,
         needToBeLearn = true,
+        autoLearn = Electricity:4,
         skillRequired = Electricity:3,
         onCreate = Recipe.OnCreate.ISA_wireCarBattery,
         xpAward = Electricity:1,
@@ -22,6 +23,7 @@ module ISA {
         time = 80,
         category = Electrical,
         needToBeLearn = true,
+        autoLearn = Electricity:4,
         skillRequired = Electricity:3,
         onCreate = Recipe.OnCreate.ISA_unwireCarBattery,
         tags = AnySurfaceCraft,
@@ -51,9 +53,100 @@ module ISA {
             item 1 ISA.DIYBattery,
         }
     }
-    
-    /*
+
     craftRecipe Make Solar Roof Tile {
+        timedAction = MakingElectrical,
+        time = 120,
+        category = Electrical,
+        needToBeLearn = true,
+        autoLearn = Electricity:4,
+        skillRequired = Electricity:3,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 [ISA.SolarPanel],
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+            item 3 [Base.ElectricWire],
+        }
+        outputs {
+            item 1 ISA.SolarPanelFlat,
+        }
+    }
+    craftRecipe Make Wall-Mounted Solar Panel {
+        timedAction = MakingElectrical,
+        time = 120,
+        category = Electrical,
+        needToBeLearn = true,
+        autoLearn = Electricity:4,
+        skillRequired = Electricity:3,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 [ISA.SolarPanel],
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+            item 3 [Base.ElectricWire],
+            item 4 [Base.MetalBar],
+            item 4 [Base.Screws],
+        }
+        outputs {
+            item 1 ISA.SolarPanelWall,
+        }
+    }
+    craftRecipe Make Floor-Mounted Solar Panel {
+        timedAction = MakingElectrical,
+        time = 120,
+        category = Electrical,
+        needToBeLearn = true,
+        autoLearn = Electricity:4,
+        skillRequired = Electricity:3,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 [ISA.SolarPanel],
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+            item 3 [Base.ElectricWire],
+            item 4 [Base.MetalBar],
+            item 4 [Base.Screws],
+        }
+        outputs {
+            item 1 ISA.SolarPanelMounted,
+        }
+    }
+    /* TODO add random drops */
+    craftRecipe Reverse Solar Panel {
+        timedAction = DismantleElectrical,
+        time = 80,
+        category = Electrical,
+        needToBeLearn = true,
+        autoLearn = Electricity:4,
+        skillRequired = Electricity:3,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 [ISA.SolarPanelFlat;ISA.SolarPanelWall;ISA.SolarPanelMounted],
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+        }
+        outputs {
+            item 1 ISA.SolarPanel,
+        }
+    }
+    craftRecipe Create Battery Bank {
+        timedAction = MakingElectrical,
+        time = 400,
+        category = Electrical,
+        needToBeLearn = true,
+        skillRequired = Electricity:4;MetalWelding:2,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+            item 1 [ISA.ISAInverter],
+            item 3 [Base.ElectricWire],
+            item 6 [Base.ElectronicsScrap],
+            item 4 [Base.MetalBar],
+            item 4 [Base.Screws],
+            item 5 [Base.SmallSheetMetal],
+        }
+        outputs {
+            item 1 ISA.SolarPanelMounted,
+        }
+    }
+    craftRecipe Create Solar Failsafe {
         timedAction = MakingElectrical,
         time = 120,
         category = Electrical,
@@ -62,12 +155,51 @@ module ISA {
         tags = AnySurfaceCraft,
         inputs {
             item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
-            item 3 [Base.ElectricWire],
-            item 1 [ISA.SolarPanel],
+            item 2 [Base.ElectricWire],
+            item 1 [Base.RemoteCraftedV3],
+            item 4 [ISA.WiredCarBattery] mode:destroy,
         }
         outputs {
-            item 1 Moveables.solarmod_tileset_01_8,
+            item 1 ISA.SolarPanelMounted,
         }
     }
-    */
+    craftRecipe Make Solar Panel {
+        category = Electrical,
+        timedAction = MakingElectrical,
+        time = 250,
+        needToBeLearn = true,
+        skillRequired = Electricity:5,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+            item 2 [Base.ElectricWire],
+            item 10 [Base.Screws],
+            item 10 [Base.ElectronicsScrap],
+            item 3 [Base.SheetMetal],
+            item 5 [Base.BlowTorch],
+            item 1 tags[WeldingMask] mode:keep,
+        }
+        outputs {
+            item 1 ISA.SolarPanel,
+        }
+    }
+    craftRecipe Make Inverter {
+        category = Electrical,
+        timedAction = MakingElectrical,
+        time = 250,
+        needToBeLearn = true,
+        skillRequired = Electricity:5,
+        tags = AnySurfaceCraft,
+        inputs {
+            item 1 tags[Screwdriver] mode:keep flags[Prop1;MayDegradeLight;NoBrokenItems],
+            item 4 [Base.SmallSheetMetal],
+            item 5 [Base.ScrapMetal],
+            item 25 [Base.ElectronicsScrap],
+            item 5 [Base.ElectricWire],
+            item 10 [Base.Screws],
+        }
+        outputs {
+            item 1 ISA.ISAInverter,
+        }
+    }
 }

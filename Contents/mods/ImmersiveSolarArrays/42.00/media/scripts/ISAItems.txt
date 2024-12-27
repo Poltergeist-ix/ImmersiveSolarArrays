@@ -77,7 +77,7 @@ module ISA
         ISA_BatteryDegrade = 0.125,
     }
     item PowerBank {
-        Type = Normal,
+        Type = Moveable,
         DisplayName		= PowerBank,
         DisplayCategory = Electronics,
         Tooltip = Tooltip_Generator,
