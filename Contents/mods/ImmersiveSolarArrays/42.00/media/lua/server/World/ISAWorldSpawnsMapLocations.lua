@@ -20,7 +20,7 @@ Maps["Muldraugh, KY"] = {
     { x = 11588, y = 9292, z = 1, type = 'solarmod_tileset_01_8', overwrite = {} },
     { x = 10390, y = 10060, z = 1, type = 'solarmod_tileset_01_9', overwrite = {} },
     { x = 10182, y = 6761, z = 1, type = 'solarmod_tileset_01_8', overwrite = {} },
-    { x = 10745, y = 9843, z = 1, type = 'solarmod_tileset_01_10', overwrite = {} },
+    { x = 10745, y = 9843, z = 2, type = 'solarmod_tileset_01_10', overwrite = {} },
     { x = 8540, y = 9037, z = 0, type = 'solarmod_tileset_01_6', overwrite = {} },
     { x = 8622, y = 8824, z = 1, type = 'solarmod_tileset_01_10', overwrite = {} },
     { x = 11619, y = 9961, z = 0, type = 'solarmod_tileset_01_10', overwrite = {} }, --traincar
@@ -39,25 +39,25 @@ Maps["Muldraugh, KY"] = {
     { x = 13917, y = 5786, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --dixie hardware:
     { x = 13916, y = 5804, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --The mall hardware:
     { x = 9185, y = 11828, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --Army quarter warehouse:
-    { x = 8279, y = 10028, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse near rosewood:
-    { x = 10698, y = 10450, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse in muldraugh:
-    { x = 5878, y = 9861, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse in the countryside:
+    { x = 8281, y = 10028, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse near rosewood:
+    { x = 10711, y = 10433, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse in muldraugh:
+    { x = 5878, y = 9863, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse in the countryside:
     { x = 12621, y = 4712, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse near valley station:
     { x = 5541, y = 12440, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --Secret military base:
     { x = 7648, y = 9331, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse
     { x = 6548, y = 8930, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse
     { x = 5878, y = 9852, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse
     { x = 10693, y = 10099, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, -- warehouse
-    { x = 10623, y = 9890, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --electric furniture store
+    { x = 10621, y = 9888, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --electric furniture store
     { x = 10633, y = 9375, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --garage
     { x = 11618, y = 9935, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --railyard / traincar
-    { x = 10672, y = 9819, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --self storage
-    { x = 10752, y = 10344, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --storage
+    { x = 10672, y = 9822, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --self storage
+    { x = 10758, y = 10345, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --storage
     { x = 10613, y = 9311, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse
     { x = 10018, y = 10913, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse
     { x = 10716, y = 10419, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --warehouse
     { x = 12828, y = 6432, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --Valley Station
-    { x = 14318, y = 4947, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --farm
+    { x = 14317, y = 4953, z = 2, type = 'solarmod_tileset_01_36', overwrite = {} }, --farm
     { x = 13843, y = 4748, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --farm
     { x = 11133, y = 6861, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, -- farm
     { x = 11961, y = 6920, z = 0, type = 'solarmod_tileset_01_36', overwrite = {} }, --hardwarestore
