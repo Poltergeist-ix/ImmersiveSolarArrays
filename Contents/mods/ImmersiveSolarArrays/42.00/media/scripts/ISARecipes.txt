@@ -143,7 +143,7 @@ module ISA {
             item 5 [Base.SmallSheetMetal],
         }
         outputs {
-            item 1 ISA.SolarPanelMounted,
+            item 1 ISA.PowerBank,
         }
     }
     craftRecipe Create Solar Failsafe {
