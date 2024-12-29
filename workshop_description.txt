@@ -1,3 +1,5 @@
+[quote][h2] This is a BETA TEST branch, it will be updated more regularly [/h2][/quote]
+
 [h1]Description[/h1]
 Immersive Solar Arrays (ISA) adds new items and lets you harvest solar power for the needs of your base!
 
@@ -31,6 +33,6 @@ Feel free to report any issues or provide feedback on [url=https://steamcommunit
 Big thank you to everybody who has contributed to this mod, through various stages of it's existence.
 [table]
 [h3]Mod info[/h3]
-[tr][td]	Workshop ID:	[/td][td]	2857548524	[/td][/tr]
+[tr][td]	Workshop ID:	[/td][td]	2969478819	[/td][/tr]
 [tr][td]	Mod ID:	[/td][td]	ISA_41	[/td][/tr]
 [/table][/code]
