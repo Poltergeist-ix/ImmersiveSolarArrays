@@ -1,11 +1,11 @@
-local isa = require "ISAUtilities"
+local ISA = require "ImmersiveSolarArrays/ISAUtilities"
 require "UI/ISAUI"
-local PbSystem = require "Powerbank/ISAPowerbankSystem_client"
+local PbSystem = require "ImmersiveSolarArrays/Powerbank/ISAPowerbankSystem_client"
 
-isa.patchClassMetaMethod(zombie.inventory.types.DrainableComboItem.class,"DoTooltip",isa.UI.DoTooltip_patch)
+ISA.patchClassMetaMethod(zombie.inventory.types.DrainableComboItem.class,"DoTooltip",ISA.UI.DoTooltip_patch)
 
 require "ISUI/ISInventoryPane"
-ISInventoryPane.drawItemDetails = isa.UI.ISInventoryPane_drawItemDetails_patch(ISInventoryPane.drawItemDetails)
+ISInventoryPane.drawItemDetails = ISA.UI.ISInventoryPane_drawItemDetails_patch(ISInventoryPane.drawItemDetails)
 
 require "TimedActions/ISActivateGenerator"
 ISActivateGenerator.perform = PbSystem.ISActivateGenerator_perform(ISActivateGenerator.perform)
