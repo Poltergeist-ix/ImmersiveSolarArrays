@@ -86,22 +86,28 @@ end
 function WorldUtil.replaceIsoObjectWithGenerator(isoObject)
     local square = isoObject:getSquare()
     local index = isoObject:getObjectIndex()
-    -- if not square or index == -1 then return IsoGenerator.new(getCell()) end
+    ---TODO check earlier
+    if not square or index == -1 then return IsoGenerator.new(getCell()) end
+    local fullType = isoObject:getSprite():getProperties():Is("CustomItem") and isoObject:getSprite():getProperties():Val("CustomItem") 
+                     or ("Moveables." .. isoObject:getTextureName())
     square:transmitRemoveItemFromSquare(isoObject)
-    local generator = IsoGenerator.new(instanceItem("ISA.PowerBank"), square:getCell(), square)
-    -- generator:transmitCompleteItemToClients()
+    -- local generator = IsoGenerator.new(instanceItem("ISA.PowerBank"), square:getCell(), square)
+    local generator = IsoGenerator.new(square:getCell())
+    generator:setSprite(isoObject:getSprite())
+    generator:setSquare(square)
+    
+    --set sprite, condition, fuel, fulltype from item
+    generator:getModData().generatorFullType = fullType
+
+    square:AddSpecialObject(generator, index)
+    generator:createContainersFromSpriteProperties()
+    generator:getContainer():setExplored(true)
+    generator:transmitCompleteItemToClients()
     ---these auto transmit, do after sending object
-    ---FIXME check b42
     generator:setCondition(100)
     generator:setFuel(100)
     generator:setConnected(true)
     generator:getCell():addToProcessIsoObjectRemove(generator)
-    -- square:AddSpecialObject(generator, index)
-    -- if isServer() then
-    --     generator:transmitCompleteItemToClients()
-    -- end
-    generator:createContainersFromSpriteProperties()
-    generator:getContainer():setExplored(true)
     triggerEvent("OnObjectAdded", generator)
 
     return generator
