@@ -6,7 +6,7 @@ if isClient() then return end
 
 require "Map/SGlobalObject"
 local ISA = require "ImmersiveSolarArrays/ISAUtilities"
-local solarscan = require "ImmersiveSolarArrays/Powerbank/ISA_solarscan"
+local solarscan = require "ImmersiveSolarArrays/Powerbank/SolarScan"
 local sandbox = SandboxVars.ISA
 
 ---@class PowerbankObject_Server : SGlobalObject

@@ -1,5 +1,5 @@
 ---@class ImmersiveSolarArrays
----@field PbSystem_server PowerbankSystem_Server
+---@field PBSystem_Server PowerbankSystem_Server
 local ISA = {}
 
 local _gameTime

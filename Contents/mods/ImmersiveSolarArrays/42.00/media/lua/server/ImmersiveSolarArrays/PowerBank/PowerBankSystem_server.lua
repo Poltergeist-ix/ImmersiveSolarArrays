@@ -10,7 +10,7 @@ local Powerbank = require "ImmersiveSolarArrays/PowerBank/PowerBankObject_server
 
 ---@class PowerbankSystem_Server : PowerbankSystem, SGlobalObjectSystem
 ---@field instance PowerbankSystem_Server
-local PbSystem = require("ImmersiveSolarArrays/ISAPowerbankSystem_shared"):new(SGlobalObjectSystem:derive("ISAPowerbankSystem_server"))
+local PbSystem = require("ImmersiveSolarArrays/PowerBankSystem_Shared"):new(SGlobalObjectSystem:derive("ISA_PowerBankSystem_Server"))
 
 --called when making the instance, triggered by: Events.OnSGlobalObjectSystemInit
 function PbSystem:new()
@@ -21,7 +21,7 @@ end
 PbSystem.savedObjectModData = { 'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', "lastHour", "conGenerator"}
 function PbSystem:initSystem()
     -- set the instance for easy access
-    ISA.PbSystem_server = self
+    ISA.PBSystem_Server = self
 
     --SGlobalObjectSystem.initSystem(self) --does nothing
     --set saved fields

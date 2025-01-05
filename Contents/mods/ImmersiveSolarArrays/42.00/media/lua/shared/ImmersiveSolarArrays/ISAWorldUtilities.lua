@@ -48,7 +48,7 @@ function WorldUtil.getLuaObjects(square,radius,level,distance)
                     if not isServer() then
                         pb = ISA.PbSystem_client:getLuaObjectOnSquare(isquare)
                     else
-                        pb = ISA.PbSystem_server:getLuaObjectOnSquare(isquare)
+                        pb = ISA.PBSystem_Server:getLuaObjectOnSquare(isquare)
                     end
                 end
                 if pb then
@@ -79,6 +79,39 @@ function WorldUtil.findTypeOnSquare(square,type)
         end
     end
     return nil
+end
+
+---@param square IsoGridSquare
+---@param spriteName string
+---@param index number
+---@param fullSpawn boolean
+---@return IsoGenerator
+function WorldUtil.placePowerBank(square, spriteName, index, fullSpawn)
+    local sprite = getSprite(spriteName)
+    local fullType = sprite:getProperties():Is("CustomItem") and sprite:getProperties():Val("CustomItem")
+                     or ("Moveables." .. spriteName)
+
+    local generator = IsoGenerator.new(square:getCell())
+    generator:setSprite(sprite)
+    generator:setSquare(square)
+
+    --set sprite, condition, fuel, fulltype from item
+    generator:getModData().generatorFullType = fullType
+
+    if fullSpawn then
+        square:AddSpecialObject(generator, index)
+        generator:createContainersFromSpriteProperties()
+        generator:getContainer():setExplored(true)
+        generator:transmitCompleteItemToClients()
+        ---these auto transmit, do after sending object
+        generator:setCondition(100)
+        generator:setFuel(100)
+        generator:setConnected(true)
+        generator:getCell():addToProcessIsoObjectRemove(generator)
+        triggerEvent("OnObjectAdded", generator)
+    end
+
+    return generator
 end
 
 ---@param isoObject IsoObject

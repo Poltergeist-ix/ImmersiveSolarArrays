@@ -3,7 +3,7 @@ local isa = require "ImmersiveSolarArrays/ISAUtilities"
 local Powerbank = require "ImmersiveSolarArrays/Powerbank/ISAPowerbank_client"
 
 ---@class PowerbankSystem_Client : PowerbankSystem, CGlobalObjectSystem
-local PbSystem = require("ImmersiveSolarArrays/ISAPowerbankSystem_shared"):new(CGlobalObjectSystem:derive("ISAPowerbankSystem_client"))
+local PbSystem = require("ImmersiveSolarArrays/PowerBankSystem_Shared"):new(CGlobalObjectSystem:derive("ISA_PowerBankSystem_Client"))
 
 function PbSystem:new()
     local o = CGlobalObjectSystem.new(self, "isa_powerbank")
@@ -219,10 +219,10 @@ function PbSystem.ISInventoryTransferAction_transferItem(ISInventoryTransferActi
                     ---TODO not send charge
                     local charge = capacity * item:getCurrentUsesFloat()
                     if take then
-                        PbSystem.instance:sendCommand(self.character,"Battery", { { x = src:getX(), y = src:getY(), z = src:getZ()} ,"take", charge, capacity})
+                        PbSystem.instance:sendCommand(self.character,"moveBattery", { { x = src:getX(), y = src:getY(), z = src:getZ()} ,"take", charge, capacity})
                     end
                     if put then
-                        PbSystem.instance:sendCommand(self.character,"Battery", { { x = dest:getX(), y = dest:getY(), z = dest:getZ()} ,"put", charge, capacity})
+                        PbSystem.instance:sendCommand(self.character,"moveBattery", { { x = dest:getX(), y = dest:getY(), z = dest:getZ()} ,"put", charge, capacity})
                     end
                     if take and put then HaloTextHelper.addText(self.character,"bzzz ... BZZZZZ ... bzzz") end
                 end
