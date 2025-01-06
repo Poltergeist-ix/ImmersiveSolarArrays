@@ -134,6 +134,8 @@ function PowerBank:updateBatteries(container, modCharge)
             print("ISA: Removed invalid item from Battery Bank. ->", item:getFullType())
         end
     end
+    -- container:setDirty(true)
+    container:setDrawDirty(true)
 end
 
 -- SPowerbank.batteryDegrade = {
@@ -194,8 +196,8 @@ end
 function PowerBank:getPanelStatus(panel)
     local x,y,z = panel:getX(), panel:getY(), panel:getZ()
     if IsoUtils.DistanceToSquared(x, y, self.x, self.y) <= 400.0 and math.abs(z - self.z) <= 3 then
-        for _, _panel in ipairs(self.panels) do
-            if x == _panel.x and y == _panel.y and z == _panel.z then return "connected" end
+        for _, panelXYZ in ipairs(self.panels) do
+            if x == panelXYZ.x and y == panelXYZ.y and z == panelXYZ.z then return "connected" end
         end
         return "not connected"
     else
@@ -205,11 +207,11 @@ end
 
 ---checks the square for a panel object and returns the object and status
 function PowerBank:getPanelStatusOnSquare(square)
-    local panel = ISA.WorldUtil.findTypeOnSquare(square,"Panel")
+    local panel = ISA.WorldUtil.findTypeOnSquare(square, "Panel")
     if panel ~= nil then
         return panel, square:isOutside() and self:getPanelStatus(panel) or "indoors"
     end
-    return nil ,""
+    return nil, ""
 end
 
 ---bugfix, verify panels
@@ -356,7 +358,7 @@ function PowerBank:setAttachedSprite(spriteName)
             local attachedSprite = attached:get(i)
             local attachedName = attachedSprite:getName()
             if attachedName == spriteName then return end
-            if string.find(attachedName, "^solarmod_tileset_01") then
+            if attachedName and string.find(attachedName, "^solarmod_tileset_01") then
                 attached:remove(attachedSprite)
                 break
             end

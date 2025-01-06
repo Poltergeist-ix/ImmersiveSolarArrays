@@ -91,6 +91,8 @@ function PBSystem:removePanel(panel)
     local pbData = panel:getModData().pbLinked
     if pbData == nil then return end
     local pb = self:getLuaObjectAt(pbData.x, pbData.y, pbData.z)
+    pbData.pbLinked = nil
+    panel:transmitModData()
     if pb == nil then return end
     local x = panel:getX()
     local y = panel:getY()
@@ -183,6 +185,44 @@ function PBSystem:onActivateGenerator(character, generator, activate)
             pb.conGenerator.ison = activate
         end
     end
+end
+
+function PBSystem:onTransferItem(action, character, item, srcContainer, destContainer, dropSquare)
+    local maxCapacity = item:getModData().ISA_maxCapacity
+    if not maxCapacity then return end
+
+    local src = srcContainer:getParent()
+    local dst = destContainer:getParent()
+    local remove = src ~= nil and ISA.WorldUtil.objectIsType(src, "Powerbank")
+    local add = dst ~= nil and ISA.WorldUtil.objectIsType(dst, "Powerbank")
+    if not remove or not add then return end
+
+    local capacity = maxCapacity * (1 - math.pow((1 - (item:getCondition()/100)),6))
+    local charge = capacity * item:getCurrentUsesFloat()
+    if remove then
+        local pb = self:getLuaObjectAt(src:getX(), src:getY(), src:getZ())
+        pb.batteries = pb.batteries - 1
+        if pb.batteries > 0 then
+            pb.charge = pb.charge - charge
+            pb.maxcapacity = pb.maxcapacity - capacity
+        else
+            pb.charge = 0
+            pb.maxcapacity = 0
+        end
+        pb:updateGenerator()
+        pb:updateSprite()
+        pb:saveData(true)
+    end
+    if add then
+        local pb = self:getLuaObjectAt(dst:getX(), dst:getY(), dst:getZ())
+        pb.batteries = pb.batteries + 1
+        pb.charge = pb.charge + charge
+        pb.maxcapacity = pb.maxcapacity + capacity
+        pb:updateGenerator()
+        pb:updateSprite()
+        pb:saveData(true)
+    end
+
 end
 
 function PBSystem.EveryDays()

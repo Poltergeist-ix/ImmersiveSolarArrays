@@ -199,4 +199,4 @@ end
 
 CGlobalObjectSystem.RegisterSystemClass(PBSystem)
 
-ISA.PBSystem_Client = PBSystem
+return PBSystem

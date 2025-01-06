@@ -1,7 +1,7 @@
-local isa = require "ImmersiveSolarArrays/Utilities"
+local ISA = require "ImmersiveSolarArrays/Utilities"
 require "ImmersiveSolarArrays/UI/ISAUI"
 
-local rgbDefault, rgbGood, rgbBad = isa.UI.rgbDefault, isa.UI.rgbGood, isa.UI.rgbBad
+local rgbDefault, rgbGood, rgbBad = ISA.UI.rgbDefault, ISA.UI.rgbGood, ISA.UI.rgbBad
 
 local ISACursor = ISBaseObject:derive("ISACursor")
 
@@ -85,7 +85,7 @@ local ISAConnectPanelCursor = ISACursor:derive("ISAConnectPanelCursor")
 
 function ISAConnectPanelCursor:new(player,square, powerbank)
     local o = ISACursor.new(self,player, square)
-    o.luaPb = isa.PBSystem_Client:getLuaObjectOnSquare(powerbank:getSquare())
+    o.luaPb = ISA.PBSystem_Client:getLuaObjectOnSquare(powerbank:getSquare())
 
     o.tooltip = ISWorldObjectContextMenu.addToolTip()
     o.tooltip:setVisible(true)
@@ -134,7 +134,7 @@ end
 function ISAConnectPanelCursor:tryBuild(x,y,z)
     self.sq = nil
     if self:isValid(getSquare(x,y,z)) then
-        isa.UI.onConnectPanel(self.player,self.panel,self.luaPb)
+        ISA.UI.onConnectPanel(self.player,self.panel,self.luaPb)
     end
 end
 
@@ -142,4 +142,4 @@ function ISAConnectPanelCursor:getAPrompt()
     if self.valid then return getText("ContextMenu_ISA_Connect_Panel") end
 end
 
-isa.ConnectPanelCursor = ISAConnectPanelCursor
+ISA.ConnectPanelCursor = ISAConnectPanelCursor

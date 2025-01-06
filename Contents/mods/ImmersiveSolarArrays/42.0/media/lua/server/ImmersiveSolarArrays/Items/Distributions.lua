@@ -67,9 +67,9 @@ pdList.ISABatteriesCache = {
 pdList.ISASolarBox = {
     rolls = 4,
     items = {
-        "ISA.SolarPanel", 64,
-        "ISA.DeepCycleBattery", 50,
-        "ISA.SuperBattery", 32,
+        "ISA.SolarPanel", 48,
+        "ISA.DeepCycleBattery", 48,
+        "ISA.SuperBattery", 24,
     },
     junk = {
         rolls = 1,

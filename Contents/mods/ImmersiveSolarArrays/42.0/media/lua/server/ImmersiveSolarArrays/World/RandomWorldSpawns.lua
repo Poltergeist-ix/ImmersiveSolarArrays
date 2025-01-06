@@ -14,7 +14,7 @@ RandomWorldSpawns.spawnCrateChance = { 999999, 10, 3, 1 }
 ---@param spriteName string
 ---@param index? number
 function RandomWorldSpawns.addToWorld(square, spriteName, index)
-    ---FIXME get adjacent free square or pop error
+    ---TODO get adjacent free square or pop error
     --if square:isFree(true) or (sprite == "solarmod_tileset_01_6" or sprite == "solarmod_tileset_01_7") and square:isFreeOrMidair(true) then
 
     index = index or -1

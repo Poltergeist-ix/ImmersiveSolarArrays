@@ -34,8 +34,8 @@ end
 function PowerBank:getPanelStatus(panel)
     local x,y,z = panel:getX(), panel:getY(), panel:getZ()
     if IsoUtils.DistanceToSquared(x, y, self.x, self.y) <= 400.0 and math.abs(z - self.z) <= 3 then
-        for _,panel in ipairs(self.panels) do
-            if x == panel.x and y == panel.y and z == panel.z then return "connected" end
+        for _, panelXYZ in ipairs(self.panels) do
+            if x == panelXYZ.x and y == panelXYZ.y and z == panelXYZ.z then return "connected" end
         end
         return "not connected"
     else

@@ -1,5 +1,5 @@
 require "ISUI/ISCollapsableWindow"
-local isa = require "ImmersiveSolarArrays/Utilities"
+local ISA = require "ImmersiveSolarArrays/Utilities"
 
 local ISAStatusWindow = ISCollapsableWindow:derive("ISAStatusWindow")
 
@@ -20,17 +20,17 @@ function ISAStatusWindow:createChildren()
 	self.panel.equalTabWidth = false
 	self:addChild(self.panel)
 
-	self.summaryView = isa.StatusWindowSummaryView:new(0, 8, self.width, self.height-8)
+	self.summaryView = ISA.StatusWindowSummaryView:new(0, 8, self.width, self.height-8)
 	self.summaryView:initialise()
     self.summaryView.infoText = getText("IGUI_ISAWindowsSumaryTab_InfoText")
 	self.panel:addView(getText("IGUI_ISAWindowsSumaryTab_TabTitle"), self.summaryView)
 	self:setInfo(self.summaryView.infoText) --need first time we open window
 
-	self.detailsView = isa.StatusWindowDetailsView:new(0, 8, self.width, self.height-8)
+	self.detailsView = ISA.StatusWindowDetailsView:new(0, 8, self.width, self.height-8)
 	self.detailsView:initialise()
 	self.panel:addView(getText("IGUI_ISAWindow_Details_TabTitle"), self.detailsView)
 
-	self.debugView = isa.StatusWindowDebugView:new(0, 8, 200, 25)
+	self.debugView = ISA.StatusWindowDebugView:new(0, 8, 200, 25)
 	self.debugView:initialise()
 	self.panel:addView("Debug", self.debugView)
 end
@@ -50,7 +50,7 @@ function ISAStatusWindow.OnOpenPanel(player,square)
 	instance.player = player
 	instance.playerObj = getSpecificPlayer(player)
 	instance.square = square
-	instance.luaPB = isa.PBSystem_Client:getLuaObjectAt(square:getX(),square:getY(),square:getZ())
+	instance.luaPB = ISA.PBSystem_Client:getLuaObjectAt(square:getX(),square:getY(),square:getZ())
 
 	instance:addToUIManager()
 end
@@ -60,4 +60,4 @@ function ISAStatusWindow:close()
 	if JoypadState.players[self.player+1] then setPrevFocusForPlayer(self.player) end
 end
 
-isa.StatusWindow = ISAStatusWindow
+ISA.StatusWindow = ISAStatusWindow
