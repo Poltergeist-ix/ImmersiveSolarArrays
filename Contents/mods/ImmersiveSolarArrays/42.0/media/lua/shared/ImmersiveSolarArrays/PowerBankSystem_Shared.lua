@@ -21,7 +21,7 @@ end
 ---@param isoObject IsoObject
 ---@return boolean
 function PbSystem:isValidIsoObject(isoObject)
-    return instanceof(isoObject, "IsoGenerator") and ISA.WorldUtil.getType(isoObject) == "Powerbank"
+    return instanceof(isoObject, "IsoGenerator") and ISA.WorldUtil.getType(isoObject) == "PowerBank"
 end
 
 function PbSystem:getIsoObjectOnSquare(square)
@@ -57,7 +57,7 @@ end
 
 function PbSystem:getValidBackupOnSquare(square)
     local generator = square:getGenerator()
-    if generator and generator:isConnected() and not ISA.WorldUtil.findTypeOnSquare(square, "Powerbank") then
+    if generator and generator:isConnected() and not ISA.WorldUtil.findTypeOnSquare(square, "PowerBank") then
         return generator
     end
 end

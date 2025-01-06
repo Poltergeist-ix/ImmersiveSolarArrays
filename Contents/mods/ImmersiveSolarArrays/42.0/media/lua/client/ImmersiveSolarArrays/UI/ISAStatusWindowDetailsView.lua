@@ -139,7 +139,7 @@ function ISAWindowDetails:getDebugLineForPlayerSquareBackup()
         local generator = sq:getGenerator()
         if not generator then text = "IGUI_ISAWindow_Details_BackupDebugNoGenerator"
         elseif not generator:isConnected() then text = "IGUI_ISAWindow_Details_BackupDebugNotConnected"
-        elseif isa.WorldUtil.findTypeOnSquare(sq,"Powerbank") then text = "IGUI_ISAWindow_Details_BackupDebugPowerbank"
+        elseif isa.WorldUtil.findTypeOnSquare(sq,"PowerBank") then text = "IGUI_ISAWindow_Details_BackupDebugPowerbank"
         elseif not pb.conGenerator or pb.conGenerator.x ~= sq:getX() or pb.conGenerator.y ~= sq:getY() or pb.conGenerator.z ~= sq:getZ() then text = "IGUI_ISAWindow_Details_BackupDebugNotBackup"
         elseif not isa.WorldUtil.findTypeOnSquare(sq,"Failsafe") then text = "IGUI_ISAWindow_Details_BackupDebugNoFailsafe"
         elseif generator:getFuel() <= 0 then text = "IGUI_ISAWindow_Details_BackupDebugNoFuel"

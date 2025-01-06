@@ -9,7 +9,7 @@ local WorldUtil = {}
 ---| `FailSafe`
 
 WorldUtil.ISATypes = {
-    solarmod_tileset_01_0 = "Powerbank",
+    solarmod_tileset_01_0 = "PowerBank",
     solarmod_tileset_01_6 = "Panel",
     solarmod_tileset_01_7 = "Panel",
     solarmod_tileset_01_8 = "Panel",
@@ -25,6 +25,9 @@ function WorldUtil.getType(isoObject)
     return WorldUtil.ISATypes[isoObject:getTextureName()]
 end
 
+---@param isoObject IsoObject
+---@param modType ISAType
+---@return boolean
 function WorldUtil.objectIsType(isoObject, modType)
     return WorldUtil.ISATypes[isoObject:getTextureName()] == modType
 end

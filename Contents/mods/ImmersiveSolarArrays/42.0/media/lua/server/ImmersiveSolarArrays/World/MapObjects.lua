@@ -27,7 +27,7 @@ else
         local square = isoObject:getSquare()
         if not square then error("ISA: OnNewWithSprite no square") return end
 
-        if isaType == "Powerbank" then
+        if isaType == "PowerBank" then
             local index = isoObject:getObjectIndex()
             local spriteName = isoObject:getTextureName()
             square:transmitRemoveItemFromSquare(isoObject)

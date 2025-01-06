@@ -63,7 +63,7 @@ function ISAWindowDebug:prerender()
             self.plugBackupButton.enable = false
             if not generator then self.plugBackupButton.tooltip = rgbBad.rich .. "No generator on player's square"
             elseif not generator:isConnected() then self.plugBackupButton.tooltip = rgbBad.rich .. "Generator is not connected"
-            elseif ISA.WorldUtil.findTypeOnSquare(square,"Powerbank") then self.plugBackupButton.tooltip = rgbBad.rich .. "This is a Powerbank"
+            elseif ISA.WorldUtil.findTypeOnSquare(square,"PowerBank") then self.plugBackupButton.tooltip = rgbBad.rich .. "This is a Powerbank"
             else
                 self.plugBackupButton.enable = true
                 self.plugBackupButton.tooltip = "Warning: No area check"

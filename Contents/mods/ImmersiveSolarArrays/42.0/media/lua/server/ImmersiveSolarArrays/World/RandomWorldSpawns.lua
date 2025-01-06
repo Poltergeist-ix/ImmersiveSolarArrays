@@ -19,7 +19,7 @@ function RandomWorldSpawns.addToWorld(square, spriteName, index)
 
     index = index or -1
     local isoObject
-    if ISA.WorldUtil.ISATypes[spriteName] == "Powerbank" then
+    if ISA.WorldUtil.ISATypes[spriteName] == "PowerBank" then
         RandomWorldSpawns.placePowerBank(square, spriteName, index)
         return
     end

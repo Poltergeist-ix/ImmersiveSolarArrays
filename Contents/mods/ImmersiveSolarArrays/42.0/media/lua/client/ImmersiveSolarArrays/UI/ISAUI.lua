@@ -41,9 +41,10 @@ end
 local _powerbank
 
 function UI.OnPreFillWorldObjectContextMenu(player, context, worldobjects, test)
-    if generator then
-        _powerbank = ISA.WorldUtil.findTypeOnSquare(generator:getSquare(),"Powerbank")
-        if _powerbank then generator = nil end
+    local generator = ISWorldObjectContextMenu.fetchVars.generator
+    if generator ~= nil and ISA.WorldUtil.objectIsType(generator, "PowerBank") then
+        _powerbank = generator
+        ISWorldObjectContextMenu.fetchVars.generator = nil
     end
 end
 
@@ -53,10 +54,10 @@ function UI.OnFillWorldObjectContextMenu(player, context, worldobjects, test)
     local panel
     --local panels = {}
 
-    for _,obj in ipairs(worldobjects) do
+    for _, obj in ipairs(worldobjects) do
         local sprite = obj:getTextureName()
         local type = ISA.WorldUtil.ISATypes[sprite]
-        if type == "Powerbank" then
+        if type == "PowerBank" then
             powerbank = obj
         elseif type == "Panel" then
             panel = obj

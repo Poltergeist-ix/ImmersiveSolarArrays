@@ -48,7 +48,7 @@ function PBSystem:OnObjectAdded(isoObject)
     local isaType = ISA.WorldUtil.getType(isoObject)
     if not isaType then
         return
-    elseif isaType == "Powerbank" then
+    elseif isaType == "PowerBank" then
         if not instanceof(isoObject, "IsoGenerator") then
             isoObject = ISA.WorldUtil.replaceIsoObjectWithGenerator(isoObject)
         end
@@ -193,8 +193,8 @@ function PBSystem:onTransferItem(action, character, item, srcContainer, destCont
 
     local src = srcContainer:getParent()
     local dst = destContainer:getParent()
-    local remove = src ~= nil and ISA.WorldUtil.objectIsType(src, "Powerbank")
-    local add = dst ~= nil and ISA.WorldUtil.objectIsType(dst, "Powerbank")
+    local remove = src ~= nil and ISA.WorldUtil.objectIsType(src, "PowerBank")
+    local add = dst ~= nil and ISA.WorldUtil.objectIsType(dst, "PowerBank")
     if not remove or not add then return end
 
     local capacity = maxCapacity * (1 - math.pow((1 - (item:getCondition()/100)),6))
