@@ -5,15 +5,6 @@ require 'Items/ProceduralDistributions'
 ---@class ImmersiveSolarArrays
 local ISA = require "ImmersiveSolarArrays/Utilities"
 
---- remake distributions based on sandbox, used by stash items
-local function OnLoadedMapZones()
-    if ItemPickerJava.doParse then
-        ItemPickerJava.doParse = nil
-        ItemPickerJava.Parse()
-    end
-    ISA.distributions = nil
-end
-
 ----------------------------------------------------------------------------------------------------------------------
 local subDist = SuburbsDistributions
 local pdList = ProceduralDistributions.list
@@ -353,6 +344,18 @@ function ISA.Distributions.insertDistributions()
         },
     })
 
+    ---TODO after debugging sandbox options load
+    -- ISA.Distributions = nil
+end
+
+
+--- remake distributions based on sandbox, used by stash items
+local function OnLoadedMapZones()
+    if ItemPickerJava.doParse then
+        ItemPickerJava.doParse = nil
+        ItemPickerJava.Parse()
+    end
+    ISA.distributions = nil
     ISA.Distributions = nil
 end
 

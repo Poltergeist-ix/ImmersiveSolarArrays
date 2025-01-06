@@ -79,9 +79,12 @@ function WorldUtil.findOnSquare(square,sprite)
     end
 end
 
-function WorldUtil.findTypeOnSquare(square,type)
+---@param square IsoGridSquare
+---@param type string
+---@return IsoObject?
+function WorldUtil.findTypeOnSquare(square, type)
     local special = square:getSpecialObjects()
-    for i = 0, special:size()-1 do
+    for i = 0, special:size() - 1 do
         local obj = special:get(i)
         if WorldUtil.ISATypes[obj:getTextureName()] == type then
             return obj
