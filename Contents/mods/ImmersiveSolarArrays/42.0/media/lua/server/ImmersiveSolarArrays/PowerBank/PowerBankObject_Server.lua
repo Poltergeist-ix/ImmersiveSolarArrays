@@ -224,7 +224,7 @@ function PowerBank:checkPanels()
         local square = getSquare(panel.x, panel.y, panel.z)
         if square ~= nil then --TODO check if chunk loaded
             local panelObj, status = self:getPanelStatusOnSquare(square)
-            if not panelObj or status ~= "valid" or dup[square] then
+            if not panelObj or status ~= "connected" or dup[square] then
                 table.remove(self.panels, i)
                 if panelObj ~= nil then
                     panelObj:getModData().pbLinked = nil
