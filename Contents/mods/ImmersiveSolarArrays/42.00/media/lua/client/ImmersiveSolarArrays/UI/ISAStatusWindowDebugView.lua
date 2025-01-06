@@ -1,6 +1,6 @@
 require "ISUI/ISPanelJoypad"
 require "ImmersiveSolarArrays/UI/ISAUI"
-local isa = require "ImmersiveSolarArrays/ISAUtilities"
+local isa = require "ImmersiveSolarArrays/Utilities"
 
 local rgbBad = isa.UI.rgbBad
 
@@ -80,7 +80,7 @@ end
 
 function ISAWindowDebug:checkContainer()
     local luapb = self.parent.parent.luaPB
-    isa.PbSystem_client:sendCommand(self.parent.parent.playerObj,"countBatteries", { x = luapb.x, y = luapb.y, z = luapb.z })
+    isa.PBSystem_Client:sendCommand(self.parent.parent.playerObj,"countBatteries", { x = luapb.x, y = luapb.y, z = luapb.z })
     self.containerButton.enable = false
     self.containerButton.disableFrame = 3 * getPerformance():getUIRenderFPS()
 end
@@ -89,7 +89,7 @@ function ISAWindowDebug:plugBackup()
     local generator = self.plugBackupButton.generator
     if generator then
         local pb = self.parent.parent.luaPB
-        isa.PbSystem_client:sendCommand(self.parent.parent.playerObj,"plugGenerator", { pbList = { { x = pb.x, y = pb.y, z = pb.z } }, gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }, plug = true })
+        isa.PBSystem_Client:sendCommand(self.parent.parent.playerObj,"plugGenerator", { pbList = { { x = pb.x, y = pb.y, z = pb.z } }, gen = { x = generator:getX(), y = generator:getY(), z = generator:getZ() }, plug = true })
     end
 end
 

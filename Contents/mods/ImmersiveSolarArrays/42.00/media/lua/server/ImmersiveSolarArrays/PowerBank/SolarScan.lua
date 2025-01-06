@@ -1,4 +1,4 @@
-local isa = require "ImmersiveSolarArrays/ISAUtilities"
+local isa = require "ImmersiveSolarArrays/Utilities"
 
 local function ConsumptionScan(square)
 	--print("running consumption scan")

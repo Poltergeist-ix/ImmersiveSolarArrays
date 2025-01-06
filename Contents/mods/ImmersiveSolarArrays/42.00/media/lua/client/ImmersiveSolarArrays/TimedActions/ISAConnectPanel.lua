@@ -1,5 +1,5 @@
 require "TimedActions/ISBaseTimedAction"
-local isa = require "ImmersiveSolarArrays/ISAUtilities"
+local isa = require "ImmersiveSolarArrays/Utilities"
 
 local ISAConnectPanel = ISBaseTimedAction:derive("ISAConnectPanel")
 
@@ -19,9 +19,9 @@ function ISAConnectPanel:start()
     data["connectDelta"] = prevDelta
     self:setCurrentTime(self.maxTime * prevDelta / 100)
     if data["pbLinked"] then
-        local pb = isa.PbSystem_client:getIsoObjectAt(data["pbLinked"].x,data["pbLinked"].y,data["pbLinked"].z) and data["pbLinked"]
+        local pb = isa.PBSystem_Client:getIsoObjectAt(data["pbLinked"].x,data["pbLinked"].y,data["pbLinked"].z) and data["pbLinked"]
         if pb then
-            isa.PbSystem_client:sendCommand(self.character,"disconnectPanel", { panel= { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }, pb = { x = pb.x, y = pb.y, z = pb.z } })
+            isa.PBSystem_Client:sendCommand(self.character,"disconnectPanel", { panel= { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }, pb = { x = pb.x, y = pb.y, z = pb.z } })
         end
         data["pbLinked"] = nil
     end
@@ -57,7 +57,7 @@ function ISAConnectPanel:perform()
     if self.powerbank:getIsoObject() then
         local pb = { x = self.powerbank.x , y = self.powerbank.y, z = self.powerbank.z }
         local panel = { x = self.panel:getX(), y = self.panel:getY(), z = self.panel:getZ() }
-        isa.PbSystem_client:sendCommand(self.character,"connectPanel", { panel = panel, pb = pb })
+        isa.PBSystem_Client:sendCommand(self.character,"connectPanel", { panel = panel, pb = pb })
         data.pbLinked = pb
     end
     self.panel:transmitModData()

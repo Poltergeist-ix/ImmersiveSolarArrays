@@ -5,21 +5,21 @@
 if isClient() then return end
 
 require "Map/SGlobalObjectSystem"
-local ISA = require "ImmersiveSolarArrays/ISAUtilities"
+local ISA = require "ImmersiveSolarArrays/Utilities"
 local Powerbank = require "ImmersiveSolarArrays/PowerBank/PowerBankObject_server"
 
 ---@class PowerbankSystem_Server : PowerbankSystem, SGlobalObjectSystem
 ---@field instance PowerbankSystem_Server
-local PbSystem = require("ImmersiveSolarArrays/PowerBankSystem_Shared"):new(SGlobalObjectSystem:derive("ISA_PowerBankSystem_Server"))
+local PBSystem = require("ImmersiveSolarArrays/PowerBankSystem_Shared"):new(SGlobalObjectSystem:derive("ISA_PowerBankSystem_Server"))
 
 --called when making the instance, triggered by: Events.OnSGlobalObjectSystemInit
-function PbSystem:new()
+function PBSystem:new()
     return SGlobalObjectSystem.new(self, "isa_powerbank")
 end
 
 --called in SGlobalObjectSystem:new(name)
-PbSystem.savedObjectModData = { 'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', "lastHour", "conGenerator"}
-function PbSystem:initSystem()
+PBSystem.savedObjectModData = { 'on', 'batteries', 'charge', 'maxcapacity', 'drain', 'npanels', 'panels', "lastHour", "conGenerator"}
+function PBSystem:initSystem()
     -- set the instance for easy access
     ISA.PBSystem_Server = self
 
@@ -30,21 +30,21 @@ function PbSystem:initSystem()
     --sandbox options, *Events.Event.Add() doesn't need to be specifically inside a function call
     self.updateEveryTenMinutes = SandboxVars.ISA.ChargeFreq == 1 and true
     if self.updateEveryTenMinutes then
-        Events.EveryTenMinutes.Add(PbSystem.updatePowerbanks)
+        Events.EveryTenMinutes.Add(PBSystem.updatePowerbanks)
     else
-        Events.EveryHours.Add(PbSystem.updatePowerbanks)
+        Events.EveryHours.Add(PBSystem.updatePowerbanks)
     end
-    Events.EveryDays.Add(PbSystem.EveryDays)
+    Events.EveryDays.Add(PBSystem.EveryDays)
 end
 
 ---Create / Load a lua object from java object
-function PbSystem:newLuaObject(globalObject)
+function PBSystem:newLuaObject(globalObject)
     return Powerbank:new(self, globalObject)
 end
 
 ---triggered by: Events.OnObjectAdded (SGlobalObjectSystem)
 ---@param isoObject IsoObject
-function PbSystem:OnObjectAdded(isoObject)
+function PBSystem:OnObjectAdded(isoObject)
     local isaType = ISA.WorldUtil.getType(isoObject)
     if not isaType then
         return
@@ -65,7 +65,7 @@ end
 
 ---triggered by: Events.OnObjectAboutToBeRemoved, Events.OnDestroyIsoThumpable  (SGlobalObjectSystem)
 ---v41.78 object data has already been copied to InventoryItem on pickup
-function PbSystem:OnObjectAboutToBeRemoved(isoObject)
+function PBSystem:OnObjectAboutToBeRemoved(isoObject)
     local isaType = ISA.WorldUtil.getType(isoObject)
     if not isaType then
         return
@@ -79,7 +79,7 @@ function PbSystem:OnObjectAboutToBeRemoved(isoObject)
     end
 end
 
-function PbSystem:OnClientCommand(command, playerObj, args)
+function PBSystem:OnClientCommand(command, playerObj, args)
     local fn = self.Commands[command]
     if fn ~= nil then
         fn(playerObj, args)
@@ -87,7 +87,7 @@ function PbSystem:OnClientCommand(command, playerObj, args)
 end
 
 ---called when object is about to be removed
-function PbSystem:removePanel(panel)
+function PBSystem:removePanel(panel)
     local pbData = panel:getModData().pbLinked
     if pbData == nil then return end
     local pb = self:getLuaObjectAt(pbData.x, pbData.y, pbData.z)
@@ -137,13 +137,58 @@ do
         table.insert(self.data, { obj = isoObject, sq = isoObject:getSquare() })
     end
 
-    PbSystem.processRemoveObj = o
+    PBSystem.processRemoveObj = o
 end
 
-function PbSystem.EveryDays()
-    local self = PbSystem.instance
+---@param character IsoPlayer
+---@param generator IsoGenerator
+function PBSystem:onPlugGenerator(character, generator)
+    local area = ISA.WorldUtil.getValidBackupArea(character:getPerkLevel(Perks.Electricity))
+    local luaPowerbanks = ISA.WorldUtil.getPowerBanksInArea(generator:getSquare(), area.radius, area.levels, area.distance)
+    if luaPowerbanks[1] == nil then return end
+    local x, y, z = generator:getX(), generator:getY(), generator:getZ()
+    for i = 1, #luaPowerbanks do
+        local pb = luaPowerbanks[i]
+        local connect = true
+        if pb.conGenerator and IsoUtils.DistanceToSquared(pb.x,pb.y,pb.z,pb.conGenerator.x,pb.conGenerator.y,pb.conGenerator.z)
+                                <= IsoUtils.DistanceToSquared(pb.x,pb.y,pb.z,x,y,z) then
+            connect = false
+        end
+        if connect then
+            pb:connectBackupGenerator(generator)
+        end
+    end
+end
+
+---@param character IsoPlayer
+---@param generator IsoGenerator
+function PBSystem:onUnPlugGenerator(character, generator)
+    local x, y ,z = generator:getX(), generator:getY(), generator:getZ()
     for i = 0, self.system:getObjectCount() - 1 do
-        ---@type PowerbankObject_Server
+        local pb = self.system:getObjectByIndex(i):getModData()
+        if pb.conGenerator and pb.conGenerator.x == x and pb.conGenerator.y == y and pb.conGenerator.z == z then
+            pb:disconnectBackupGenerator(generator)
+        end
+    end
+end
+
+---@param character IsoPlayer
+---@param generator IsoGenerator
+---@param activate boolean
+function PBSystem:onActivateGenerator(character, generator, activate)
+    local x, y, z = generator:getX(), generator:getY(), generator:getZ()
+    for i = 1, self:getLuaObjectCount() do
+        local pb = self:getLuaObjectByIndex(i)
+        if pb.conGenerator and pb.conGenerator.x == x and pb.conGenerator.y == y and pb.conGenerator.z == z then
+            pb.conGenerator.ison = activate
+        end
+    end
+end
+
+function PBSystem.EveryDays()
+    local self = PBSystem.instance
+    for i = 0, self.system:getObjectCount() - 1 do
+        ---@type PowerBankObject_Server
         local pb = self.system:getObjectByIndex(i):getModData()
         local isopb = pb:getIsoObject()
         if isopb then
@@ -156,11 +201,11 @@ function PbSystem.EveryDays()
     end
 end
 
-function PbSystem.updatePowerbanks()
-    local self = PbSystem.instance
+function PBSystem.updatePowerbanks()
+    local self = PBSystem.instance
     local solaroutput = self:getModifiedSolarOutput(1)
     for i = 0, self.system:getObjectCount() - 1 do
-        ---@type PowerbankObject_Server
+        ---@type PowerBankObject_Server
         local pb = self.system:getObjectByIndex(i):getModData()
         local isopb = pb:getIsoObject()
         local drain = 0
@@ -187,6 +232,6 @@ function PbSystem.updatePowerbanks()
     end
 end
 
-SGlobalObjectSystem.RegisterSystemClass(PbSystem)
+SGlobalObjectSystem.RegisterSystemClass(PBSystem)
 
-return PbSystem
+return PBSystem

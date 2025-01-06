@@ -1,5 +1,5 @@
 require "TimedActions/ISBaseTimedAction"
-local isa = require "ImmersiveSolarArrays/ISAUtilities"
+local ISA = require "ImmersiveSolarArrays/Utilities"
 
 local ActivatePowerbank = ISBaseTimedAction:derive("ISAActivatePowerbank")
 
@@ -25,7 +25,7 @@ function ActivatePowerbank:isValid()
 end
 
 function ActivatePowerbank:perform()
-    local luapb = isa.PbSystem_client:getLuaObjectOnSquare(self.isoPb:getSquare())
+    local luapb = ISA.PBSystem_Client:getLuaObjectOnSquare(self.isoPb:getSquare())
     if self.activate then
         local level = self.character:getPerkLevel(Perks.Electricity)
         if level < 3 and ZombRand(6-2*level) ~= 0 then
@@ -42,9 +42,9 @@ function ActivatePowerbank:perform()
     end
 
     local pb =  { x = luapb.x, y = luapb.y, z = luapb.z }
-    isa.PbSystem_client:sendCommand(self.character,"activatePowerbank", { pb = pb, activate = self.activate })
+    ISA.PBSystem_Client:sendCommand(self.character,"activatePowerbank", { pb = pb, activate = self.activate })
 
     ISBaseTimedAction.perform(self)
 end
 
-isa.ActivatePowerbank = ActivatePowerbank
+ISA.ActivatePowerbank = ActivatePowerbank

@@ -5,19 +5,19 @@
 if isClient() then return end
 
 require "Map/SGlobalObject"
-local ISA = require "ImmersiveSolarArrays/ISAUtilities"
+local ISA = require "ImmersiveSolarArrays/Utilities"
 local solarscan = require "ImmersiveSolarArrays/Powerbank/SolarScan"
 local sandbox = SandboxVars.ISA
 
----@class PowerbankObject_Server : SGlobalObject
+---@class PowerBankObject_Server : SGlobalObject
 ---@field luaSystem PowerbankSystem_Server
-local SPowerbank = SGlobalObject:derive("SPowerbank")
+local PowerBank = SGlobalObject:derive("ISA_PowerBank_Server")
 
-function SPowerbank:new(luaSystem, globalObject)
+function PowerBank:new(luaSystem, globalObject)
     return SGlobalObject.new(self, luaSystem, globalObject)
 end
 
-function SPowerbank:initNew()
+function PowerBank:initNew()
     self.on = false
     self.batteries = 0
     self.charge = 0
@@ -31,7 +31,7 @@ end
 
 ---called from loadIsoObject function when making new globalObject & luaObject. This is called for IsoObjects that did not have a Lua object when loaded.
 ---triggered by: Events.OnObjectAdded, MapObjects.OnLoadWithSprite
-function SPowerbank:stateFromIsoObject(isoObject)
+function PowerBank:stateFromIsoObject(isoObject)
     self:initNew()
     self:calculateBatteryStats(isoObject:getContainer())
     self:autoConnectBackup()
@@ -43,26 +43,26 @@ function SPowerbank:stateFromIsoObject(isoObject)
 end
 
 ---called from loadIsoObject function when luaObject exists, triggered by: Events.OnObjectAdded, MapObjects.OnLoadWithSprite
-function SPowerbank:stateToIsoObject(isoObject)
+function PowerBank:stateToIsoObject(isoObject)
     self:toModData(isoObject:getModData())
     isoObject:transmitModData()
     self:loadGenerator()
     self:updateSprite()
 end
 
-function SPowerbank:fromModData(modData)
+function PowerBank:fromModData(modData)
     for i, key in ipairs(self.luaSystem.savedObjectModData) do
         self[key] = modData[key]
     end
 end
 
-function SPowerbank:toModData(modData)
+function PowerBank:toModData(modData)
     for i, key in ipairs(self.luaSystem.savedObjectModData) do
         modData[key] = self[key]
     end
 end
 
-function SPowerbank:saveData(transmit)
+function PowerBank:saveData(transmit)
     local isoObject = self:getIsoObject()
     if not isoObject then return end
     self:toModData(isoObject:getModData())
@@ -71,7 +71,7 @@ function SPowerbank:saveData(transmit)
     end
 end
 
-function SPowerbank:shouldDrain(isoPb)
+function PowerBank:shouldDrain(isoPb)
     if self.switchchanged then
         self.switchchanged = nil
     elseif not self.on then
@@ -90,18 +90,18 @@ function SPowerbank:shouldDrain(isoPb)
     return true
 end
 
-SPowerbank.fuelToSolarRate = 800
-function SPowerbank:getDrainVanilla(square)
+PowerBank.fuelToSolarRate = 800
+function PowerBank:getDrainVanilla(square)
     local gen = square:getGenerator()
     if gen:isActivated() then
         gen:setSurroundingElectricity()
         return gen:getTotalPowerUsing() * self.fuelToSolarRate
     else
-        return SPowerbank.getTotalWhenoff(gen) * self.fuelToSolarRate
+        return PowerBank.getTotalWhenoff(gen) * self.fuelToSolarRate
     end
 end
 
-function SPowerbank.getTotalWhenoff(generator)
+function PowerBank.getTotalWhenoff(generator)
     generator:setActivated(true)
     local tpu = generator:getTotalPowerUsing()
     generator:setActivated(false)
@@ -109,19 +109,19 @@ function SPowerbank.getTotalWhenoff(generator)
     return tpu
 end
 
-function SPowerbank:updateDrain()
+function PowerBank:updateDrain()
     local square = self:getSquare()
     if not square then return end
     if sandbox.DrainCalc == 1 then
         self.drain = solarscan(square, false, true, false, 0)
     else
-        self.drain = SPowerbank:getDrainVanilla(square)
+        self.drain = PowerBank:getDrainVanilla(square)
     end
 end
 
 ---@param container ItemContainer
 ---@param modCharge number
-function SPowerbank:updateBatteries(container, modCharge)
+function PowerBank:updateBatteries(container, modCharge)
     local items = container:getItems()
     for i = items:size() - 1, 0, -1  do
         local item = items:get(i)
@@ -144,7 +144,7 @@ end
 -- }
 
 --condition is an int
-function SPowerbank:degradeBatteries(container)
+function PowerBank:degradeBatteries(container)
     if sandbox.batteryDegradeChance == 0 then return end
 
     local ZombRand, math = ZombRand, math
@@ -164,7 +164,7 @@ function SPowerbank:degradeBatteries(container)
     end
 end
 
-function SPowerbank:calculateBatteryStats(container)
+function PowerBank:calculateBatteryStats(container)
     local batteries = 0
     local capacity = 0
     local charge = 0
@@ -172,7 +172,7 @@ function SPowerbank:calculateBatteryStats(container)
     local items = container:getItems()
     for i = 0, items:size() - 1 do
         local item = items:get(i)
-        local maxCapacity = item:getModData().ISA_maxCapacity --or ISA.maxBatteryCapacity[item:getType()]
+        local maxCapacity = item:getModData().ISA_maxCapacity
         if maxCapacity then
             local condition = item:getCondition()
             if condition > 0 then
@@ -191,7 +191,7 @@ function SPowerbank:calculateBatteryStats(container)
     self.charge = charge
 end
 
-function SPowerbank:getPanelStatus(panel)
+function PowerBank:getPanelStatus(panel)
     local x,y,z = panel:getX(), panel:getY(), panel:getZ()
     if IsoUtils.DistanceToSquared(x, y, self.x, self.y) <= 400.0 and math.abs(z - self.z) <= 3 then
         for _, _panel in ipairs(self.panels) do
@@ -204,7 +204,7 @@ function SPowerbank:getPanelStatus(panel)
 end
 
 ---checks the square for a panel object and returns the object and status
-function SPowerbank:getPanelStatusOnSquare(square)
+function PowerBank:getPanelStatusOnSquare(square)
     local panel = ISA.WorldUtil.findTypeOnSquare(square,"Panel")
     if panel ~= nil then
         return panel, square:isOutside() and self:getPanelStatus(panel) or "indoors"
@@ -213,7 +213,7 @@ function SPowerbank:getPanelStatusOnSquare(square)
 end
 
 ---bugfix, verify panels
-function SPowerbank:checkPanels()
+function PowerBank:checkPanels()
     local getSquare = getSquare
 
     local dup = {}
@@ -224,6 +224,10 @@ function SPowerbank:checkPanels()
             local panelObj, status = self:getPanelStatusOnSquare(square)
             if not panelObj or status ~= "valid" or dup[square] then
                 table.remove(self.panels, i)
+                if panelObj ~= nil then
+                    panelObj:getModData().pbLinked = nil
+                    panelObj:transmitModData()
+                end
             end
             dup[square] = true
         end
@@ -233,7 +237,7 @@ end
 
 ---@param modChanrge number
 ---@return string?
-function SPowerbank:getSpriteForOverlay(modChanrge)
+function PowerBank:getSpriteForOverlay(modChanrge)
     if self.batteries <= 0 then return nil end
     if modChanrge == nil then modChanrge = self.maxcapacity > 0 and self.charge / self.maxcapacity or 0 end
     if modChanrge < 0.10 then
@@ -329,7 +333,7 @@ function SPowerbank:getSpriteForOverlay(modChanrge)
     end
 end
 
-function SPowerbank:updateSprite(modCharge)
+function PowerBank:updateSprite(modCharge)
     local newSprite = self:getSpriteForOverlay(modCharge)
     self:setAttachedSprite(newSprite)
     -- local gen = self:getSquare():getGenerator()
@@ -339,7 +343,7 @@ function SPowerbank:updateSprite(modCharge)
     -- end
 end
 
-function SPowerbank:setAttachedSprite(spriteName)
+function PowerBank:setAttachedSprite(spriteName)
     local isoObject = self:getIsoObject()
     local attached = isoObject:getAttachedAnimSprite()
     if attached == nil and spriteName == nil then return end
@@ -365,7 +369,7 @@ function SPowerbank:setAttachedSprite(spriteName)
 end
 
 ---FIXME update
-function SPowerbank:createGenerator()
+function PowerBank:createGenerator()
     self:noise("Creating Generator")
     -- local square = self:getSquare()
     -- local generator = IsoGenerator.new(instanceItem("ISA.PowerBank_test"), square:getCell(), square) --FIXME test invisible
@@ -378,7 +382,7 @@ function SPowerbank:createGenerator()
 end
 
 ---FIXME update
-function SPowerbank:removeGenerator()
+function PowerBank:removeGenerator()
     local square = self:getSquare()
     local gen = square:getGenerator()
     if gen then
@@ -389,7 +393,7 @@ function SPowerbank:removeGenerator()
 end
 
 ---FIXME should not include next charge or duplicate current dCharge?
-function SPowerbank:updateGenerator(dCharge)
+function PowerBank:updateGenerator(dCharge)
     if dCharge == nil then
         dCharge = self.luaSystem:getModifiedSolarOutput(self.npanels) - self.drain
         if sandbox.ChargeFreq == 1 then
@@ -403,7 +407,7 @@ function SPowerbank:updateGenerator(dCharge)
 end
 
 --if freezer timers, Powerbank generator condition / fuel are wrong check here
-function SPowerbank:loadGenerator()
+function PowerBank:loadGenerator()
     -- local square = self:getSquare()
     -- self:fixIndex()
     -- local gen = square:getGenerator()
@@ -421,7 +425,7 @@ function SPowerbank:loadGenerator()
 end
 
 ---FIXME update
-function SPowerbank:fixIndex()
+function PowerBank:fixIndex()
     if self.fixIndex_done then return end
     self.fixIndex_done = true
 
@@ -452,17 +456,23 @@ function SPowerbank:fixIndex()
     if not hasGen then self:createGenerator() end
 end
 
-function SPowerbank:connectBackupGenerator(generator)
+function PowerBank:connectBackupGenerator(generator)
     self.conGenerator = {}
     self.conGenerator.x = generator:getX()
     self.conGenerator.y = generator:getY()
     self.conGenerator.z = generator:getZ()
     self.conGenerator.ison = generator:isActivated()
     self.lastHour = 0
+    self:saveData(true)
 end
 
-function SPowerbank:autoConnectBackup()
-    local area = ISA.WorldUtil.getValidBackupArea(nil , 3)
+function PowerBank:disconnectBackupGenerator(generator)
+    self.conGenerator = false
+    self:saveData(true)
+end
+
+function PowerBank:autoConnectBackup()
+    local area = ISA.WorldUtil.getValidBackupArea(3)
 
     self.conGenerator = false
     for ix = self.x - area.radius, self.x + area.radius do
@@ -481,7 +491,7 @@ function SPowerbank:autoConnectBackup()
     end
 end
 
-function SPowerbank:getConGenerator()
+function PowerBank:getConGenerator()
     if self.conGenerator then
         local square = getSquare(self.conGenerator.x,self.conGenerator.y,self.conGenerator.z)
         if square then
@@ -493,7 +503,7 @@ function SPowerbank:getConGenerator()
     return nil
 end
 
-function SPowerbank:updateConGenerator()
+function PowerBank:updateConGenerator()
     local currentHour = math.floor(getGameTime():getWorldAgeHours())
     if self.lastHour == currentHour then return end
     local conGenerator,square = self:getConGenerator()
@@ -515,4 +525,4 @@ function SPowerbank:updateConGenerator()
     end
 end
 
-return SPowerbank
+return PowerBank

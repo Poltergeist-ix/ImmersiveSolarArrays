@@ -20,9 +20,8 @@ Maps["Muldraugh, KY"] = {
     { x = 11588, y = 9292, z = 1, type = 'solarmod_tileset_01_8', overwrite = {} },
     { x = 10390, y = 10060, z = 1, type = 'solarmod_tileset_01_9', overwrite = {} },
     { x = 10182, y = 6761, z = 1, type = 'solarmod_tileset_01_8', overwrite = {} },
-    { x = 10745, y = 9843, z = 2, type = 'solarmod_tileset_01_10', overwrite = {} },
     { x = 8540, y = 9037, z = 0, type = 'solarmod_tileset_01_6', overwrite = {} },
-    { x = 8622, y = 8824, z = 1, type = 'solarmod_tileset_01_10', overwrite = {} },
+    { x = 8622, y = 8823, z = 1, type = 'solarmod_tileset_01_9', overwrite = {} },
     { x = 11619, y = 9961, z = 0, type = 'solarmod_tileset_01_10', overwrite = {} }, --traincar
     { x = 11619, y = 9934, z = 0, type = 'solarmod_tileset_01_10', overwrite = {} }, --traincar
     { x = 11642, y = 9762, z = 0, type = 'solarmod_tileset_01_10', overwrite = {} },

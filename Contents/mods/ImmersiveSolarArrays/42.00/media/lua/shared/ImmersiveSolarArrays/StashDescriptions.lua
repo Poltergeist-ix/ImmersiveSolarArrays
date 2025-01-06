@@ -1,7 +1,6 @@
 --if isClient then return end -- how much of this does a client actually need?
 
-local isa = require "ImmersiveSolarArrays/ISAUtilities"
---local StashUtil = StashUtil
+local ISA = require "ImmersiveSolarArrays/Utilities"
 
 local Stash = { descriptions = {} }
 
@@ -155,7 +154,7 @@ stashMap:addStamp("X", nil, 13039, 2926, 0, 0, 0)
 
 function Stash.prepareBuildingStash()
     local ZombRand, StashSystem = ZombRand, StashSystem
-    for stashMap,customDef in pairs(Stash.descriptions) do
+    for stashMap, customDef in pairs(Stash.descriptions) do
         if customDef.knownOnStart and ZombRand(100) < customDef.knownOnStart then
             StashSystem.prepareBuildingStash(stashMap.name)
         end
@@ -163,14 +162,12 @@ function Stash.prepareBuildingStash()
 end
 
 function Stash.insertItems(addMapItems)
-    local table = table
-    local StashDescriptions = StashDescriptions
     local all = SuburbsDistributions.all
 
-    for stashMap,customDef in pairs(Stash.descriptions) do
-        table.insert(StashDescriptions,stashMap)
+    for stashMap, customDef in pairs(Stash.descriptions) do
+        table.insert(StashDescriptions, stashMap)
         if addMapItems and customDef.rarity and customDef.targets then
-            isa.distributions.insertSimilarItems(all,customDef.targets,{stashMap.item,customDef.rarity})
+            ISA.Distributions.insertItemsToMultipleLists(all,customDef.targets,{stashMap.item,customDef.rarity})
         end
     end
     if addMapItems then
@@ -179,13 +176,13 @@ function Stash.insertItems(addMapItems)
 end
 
 function Stash.sandbox(newGame)
-    local mode = SandboxVars.ISA.StashMode or 1
+    local mode = SandboxVars.ISA.StashMode
     if mode == 1 then return end
 
     Stash.insertItems(mode ~= 4)
 
     if mode ~= 2 and newGame and not isClient() then
-        isa.queueFunction("OnTick",Stash.prepareBuildingStash)
+        ISA.queueFunction("OnTick", Stash.prepareBuildingStash)
     end
 end
 

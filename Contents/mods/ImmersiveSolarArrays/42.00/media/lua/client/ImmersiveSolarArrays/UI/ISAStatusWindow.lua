@@ -1,5 +1,5 @@
 require "ISUI/ISCollapsableWindow"
-local isa = require "ImmersiveSolarArrays/ISAUtilities"
+local isa = require "ImmersiveSolarArrays/Utilities"
 
 local ISAStatusWindow = ISCollapsableWindow:derive("ISAStatusWindow")
 
@@ -50,7 +50,7 @@ function ISAStatusWindow.OnOpenPanel(player,square)
 	instance.player = player
 	instance.playerObj = getSpecificPlayer(player)
 	instance.square = square
-	instance.luaPB = isa.PbSystem_client:getLuaObjectAt(square:getX(),square:getY(),square:getZ())
+	instance.luaPB = isa.PBSystem_Client:getLuaObjectAt(square:getX(),square:getY(),square:getZ())
 
 	instance:addToUIManager()
 end

@@ -1,6 +1,7 @@
 local string, math, getText = string, math, getText
 
-local isa = require "ImmersiveSolarArrays/ISAUtilities"
+---@class ImmersiveSolarArrays
+local ISA = require "ImmersiveSolarArrays/Utilities"
 
 local UI = {}
 
@@ -18,31 +19,30 @@ function UI.updateColours()
     rgbBad.r, rgbBad.g, rgbBad.b = bad:getR(), bad:getG(), bad:getB()
     rgbBad.rich = string.format(" <RGB:%.2f,%.2f,%.2f> ", rgbBad.r, rgbBad.g, rgbBad.b)
 end
-UI.updateColours()
 
 function UI.onConnectPanel(player,panel,luaPb)
     local character = getSpecificPlayer(player)
     if luautils.walkAdj(character, panel:getSquare(), true) then
-        ISTimedActionQueue.add(isa.ConnectPanel:new(character, panel, luaPb))
+        ISTimedActionQueue.add(ISA.ConnectPanel:new(character, panel, luaPb))
     end
 end
 
 local function ActivatePowerbank(player,powerbank,activate)
     local character = getSpecificPlayer(player)
     if luautils.walkAdj(character, powerbank:getSquare(), true) then
-        ISTimedActionQueue.add(isa.ActivatePowerbank:new(character, powerbank, activate))
+        ISTimedActionQueue.add(ISA.ActivatePowerbank:new(character, powerbank, activate))
     end
 end
 
 local function onConnectPanelCursor(player, square, powerbank)
-    return isa.ConnectPanelCursor:new(player, square, powerbank)
+    return ISA.ConnectPanelCursor:new(player, square, powerbank)
 end
 
 local _powerbank
 
 function UI.OnPreFillWorldObjectContextMenu(player, context, worldobjects, test)
     if generator then
-        _powerbank = isa.WorldUtil.findTypeOnSquare(generator:getSquare(),"Powerbank")
+        _powerbank = ISA.WorldUtil.findTypeOnSquare(generator:getSquare(),"Powerbank")
         if _powerbank then generator = nil end
     end
 end
@@ -55,7 +55,7 @@ function UI.OnFillWorldObjectContextMenu(player, context, worldobjects, test)
 
     for _,obj in ipairs(worldobjects) do
         local sprite = obj:getTextureName()
-        local type = isa.WorldUtil.ISATypes[sprite]
+        local type = ISA.WorldUtil.ISATypes[sprite]
         if type == "Powerbank" then
             powerbank = obj
         elseif type == "Panel" then
@@ -72,7 +72,7 @@ function UI.OnFillWorldObjectContextMenu(player, context, worldobjects, test)
         local ISASubMenu = context:getNew(context)
         context:addSubMenu(context:addOption(getText("ContextMenu_ISA_BatteryBank")), ISASubMenu)
         if test then return ISWorldObjectContextMenu.setTest() end
-        ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), player, isa.StatusWindow.OnOpenPanel, square)
+        ISASubMenu:addOption(getText("ContextMenu_ISA_BatteryBankStatus"), player, ISA.StatusWindow.OnOpenPanel, square)
         local isOn = powerbank:getModData()["on"]
         local textOn = isOn and getText("ContextMenu_Turn_Off") or getText("ContextMenu_Turn_On")
         if test then return ISWorldObjectContextMenu.setTest() end
@@ -85,7 +85,7 @@ function UI.OnFillWorldObjectContextMenu(player, context, worldobjects, test)
         if panel then
             if test then return ISWorldObjectContextMenu.setTest() end
             local panelOption = context:addOption(getText("ContextMenu_ISA_SolarPanel"))
-            local options = isa.PbSystem_client.canConnectPanelTo(panel)
+            local options = ISA.PBSystem_Client.canConnectPanelTo(panel)
             if #options > 0 then
                 local ISASubMenu = context:getNew(context)
                 context:addSubMenu(panelOption, ISASubMenu)
@@ -134,7 +134,7 @@ end
 
 function UI.DoTooltip_patch(DoTooltip)
     return function(item,tooltip)
-        local maxCapacity = item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()]
+        local maxCapacity = item:getModData().ISA_maxCapacity
         if not maxCapacity then
             return DoTooltip(item,tooltip)
         else
@@ -174,7 +174,9 @@ function UI.DoTooltip_patch(DoTooltip)
     end
 end
 
+UI.updateColours()
+
 Events.OnPreFillWorldObjectContextMenu.Add(UI.OnPreFillWorldObjectContextMenu)
 Events.OnFillWorldObjectContextMenu.Add(UI.OnFillWorldObjectContextMenu)
 
-isa.UI = UI
+ISA.UI = UI

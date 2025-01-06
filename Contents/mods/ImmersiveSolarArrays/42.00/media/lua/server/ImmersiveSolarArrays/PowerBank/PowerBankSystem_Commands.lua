@@ -8,7 +8,7 @@ local Commands = {}
 local function noise(message) return PBSystem.instance:noise(message) end
 
 ---@param args table
----@return PowerbankObject_Server
+---@return PowerBankObject_Server
 local function getPowerBank(args)
     return PBSystem.instance:getLuaObjectAt(args.x, args.y, args.z)
 end

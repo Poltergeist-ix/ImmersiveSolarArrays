@@ -1,5 +1,5 @@
 ---@class ImmersiveSolarArrays
-local ISA = require "ImmersiveSolarArrays/ISAUtilities"
+local ISA = require "ImmersiveSolarArrays/Utilities"
 
 local WorldUtil = {}
 
@@ -29,35 +29,41 @@ function WorldUtil.objectIsType(isoObject, modType)
     return WorldUtil.ISATypes[isoObject:getTextureName()] == modType
 end
 
-function WorldUtil.getValidBackupArea(isoPlayer,level)
-    local skillLevel = isoPlayer and isoPlayer:getPerkLevel(Perks.Electricity) or level or 3
-    return { radius = skillLevel, levels = skillLevel > 5 and 1 or 0, distance = math.pow(skillLevel, 2) * 1.25 }
+---@param level number Electical skill level
+---@return table
+function WorldUtil.getValidBackupArea(level)
+    return { radius = level, levels = level > 5 and 1 or 0, distance = math.pow(level, 2) * 1.25 }
 end
 
-function WorldUtil.getLuaObjects(square,radius,level,distance)
-    local banks = {}
+---@param square IsoGridSquare
+---@param radius number
+---@param zLevels number
+---@param distance number
+---@return table<any,PowerBankObject_Server>
+function WorldUtil.getPowerBanksInArea(square, radius, zLevels, distance)
+    local all = {}
     local x = square:getX()
     local y = square:getY()
     local z = square:getZ()
     for ix = x - radius, x + radius do
         for iy = y - radius, y + radius do
-            for iz = z - level, z+level do
+            for iz = z - zLevels, z + zLevels do
                 local isquare = IsoUtils.DistanceToSquared(x,y,z,ix,iy,iz) <= distance and getSquare(ix, iy, iz)
                 local pb
                 if isquare then
-                    if not isServer() then
-                        pb = ISA.PbSystem_client:getLuaObjectOnSquare(isquare)
+                    if isClient() then
+                        pb = ISA.PBSystem_Client:getLuaObjectOnSquare(isquare)
                     else
                         pb = ISA.PBSystem_Server:getLuaObjectOnSquare(isquare)
                     end
                 end
-                if pb then
-                    table.insert(banks,pb)
+                if pb ~= nil then
+                    table.insert(all,pb)
                 end
             end
         end
     end
-    return banks
+    return all
 end
 
 function WorldUtil.findOnSquare(square,sprite)

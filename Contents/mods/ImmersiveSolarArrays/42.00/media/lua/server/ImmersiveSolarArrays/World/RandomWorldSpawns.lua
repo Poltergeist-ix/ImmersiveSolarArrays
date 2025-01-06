@@ -1,12 +1,14 @@
 if isClient() then return end
 
-local ISA = require "ImmersiveSolarArrays/ISAUtilities"
+local ISA = require "ImmersiveSolarArrays/Utilities"
 local TargetSquare_OnLoad = require "!_TargetSquare_OnLoad"
 local sandbox = SandboxVars.ISA
 
 local RandomWorldSpawns = {}
 RandomWorldSpawns.spawnBatteryBankRooms = { shed = 12, garagestorage = 12, storageunit = 12, electronicsstorage = 3, farmstorage = 8 }
 RandomWorldSpawns.spawnBatteryBankChance = { 999999, 10, 3, 1 }
+RandomWorldSpawns.spawnCrateRooms = { garagestorage = 33, storageunit = 16 }
+RandomWorldSpawns.spawnCrateChance = { 999999, 10, 3, 1 }
 
 ---@param square IsoGridSquare
 ---@param spriteName string
@@ -92,6 +94,19 @@ function RandomWorldSpawns.fillContainer(isoObject, sprite)
     container:setExplored(true)
 end
 
+---TODO balance loot
+-- function RandomWorldSpawns.fillContainer(isoObject, sprite)
+--     local container = isoObject:getContainer()
+--     if not container then return end
+--     ItemPickerJava.fillContainer(container,getPlayer())
+--     ItemPickerJava.updateOverlaySprite(isoObject)
+--     container:setExplored(true)
+
+--     if getDebug() and getPlayer() then
+--         getPlayer():Say(string.format("isa: filled container x:%.1f, y:%.1f",getPlayer():getX()-isoObject:getX(),getPlayer():getY()-isoObject:getY()))
+--     end
+-- end
+
 function RandomWorldSpawns.doRolls(targetSquare)
     local spawnChance = sandbox.solarPanelWorldSpawns
     if spawnChance == 0 then return end
@@ -117,11 +132,24 @@ function RandomWorldSpawns.doRolls(targetSquare)
 end
 
 function RandomWorldSpawns.OnSeeNewRoom(room)
-    local roomChance = RandomWorldSpawns.spawnBatteryBankRooms[room:getName()]
-    if roomChance and ZombRand(roomChance * RandomWorldSpawns.spawnBatteryBankChance[sandbox.BatteryBankSpawn]) == 0 then
-        local square = room:getRandomFreeSquare()
+    local roomChance, square
+    -- random powerbank
+    if sandbox.BatteryBankSpawn > 1 then
+        roomchance = RandomWorldSpawns.spawnBatteryBankRooms[room:getName()]
+        if roomChance and ZombRand(roomChance * RandomWorldSpawns.spawnBatteryBankChance[sandbox.BatteryBankSpawn]) == 0 then
+            square = room:getRandomFreeSquare()
+            if square then
+                RandomWorldSpawns.addToWorld(square, "solarmod_tileset_01_0")
+            end
+        end
+    end
+    ---TODO add sandbox option
+    --random crate
+    roomChance = RandomWorldSpawns.spawnCrateRooms[room:getName()]
+    if roomChance and ZombRand(roomChance * RandomWorldSpawns.spawnCrateChance[sandbox.BatteryBankSpawn]) == 0 then
+        square = room:getRandomFreeSquare()
         if square then
-            RandomWorldSpawns.addToWorld(square, "solarmod_tileset_01_0")
+            RandomWorldSpawns.addToWorld(square, "solarmod_tileset_01_36")
         end
     end
 end

@@ -1,12 +1,13 @@
 --[[
-Shared functions between client and server systems
+    "isa_powerbank" shared functions between client and server systems
 --]]
 
-local ISA = require "ImmersiveSolarArrays/ISAUtilities"
+local ISA = require "ImmersiveSolarArrays/Utilities"
 local sandbox = SandboxVars.ISA
 
 ---@class PowerbankSystem
----@field getLuaObjectAt fun(self, x: number, y: number, z: number): PowerbankObject_Server
+---@field getLuaObjectAt fun(self, x: number, y: number, z: number): PowerBankObject_Server
+---@field getLuaObjectOnSquare fun(self, square: IsoGridSquare): PowerBankObject_Server
 local PbSystem = {}
 
 --also adds this function
@@ -56,7 +57,7 @@ end
 
 function PbSystem:getValidBackupOnSquare(square)
     local generator = square:getGenerator()
-    if generator and generator:isConnected() and not ISA.WorldUtil.findTypeOnSquare(square,"Powerbank") then
+    if generator and generator:isConnected() and not ISA.WorldUtil.findTypeOnSquare(square, "Powerbank") then
         return generator
     end
 end

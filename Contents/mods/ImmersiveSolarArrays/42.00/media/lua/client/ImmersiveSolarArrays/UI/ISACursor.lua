@@ -1,4 +1,4 @@
-local isa = require "ImmersiveSolarArrays/ISAUtilities"
+local isa = require "ImmersiveSolarArrays/Utilities"
 require "ImmersiveSolarArrays/UI/ISAUI"
 
 local rgbDefault, rgbGood, rgbBad = isa.UI.rgbDefault, isa.UI.rgbGood, isa.UI.rgbBad
@@ -85,7 +85,7 @@ local ISAConnectPanelCursor = ISACursor:derive("ISAConnectPanelCursor")
 
 function ISAConnectPanelCursor:new(player,square, powerbank)
     local o = ISACursor.new(self,player, square)
-    o.luaPb = isa.PbSystem_client:getLuaObjectOnSquare(powerbank:getSquare())
+    o.luaPb = isa.PBSystem_Client:getLuaObjectOnSquare(powerbank:getSquare())
 
     o.tooltip = ISWorldObjectContextMenu.addToolTip()
     o.tooltip:setVisible(true)

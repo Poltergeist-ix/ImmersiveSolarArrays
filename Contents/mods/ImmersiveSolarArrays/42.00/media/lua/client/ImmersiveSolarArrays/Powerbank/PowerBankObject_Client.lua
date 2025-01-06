@@ -1,15 +1,15 @@
-local ISA = require "ImmersiveSolarArrays/ISAUtilities"
+local ISA = require "ImmersiveSolarArrays/Utilities"
 require "Map/CGlobalObject"
 
----@class PowerbankObject_Client : CGlobalObject
+---@class PowerBankObject_Client : CGlobalObject
 ---@field luaSystem PowerbankSystem_Client
-local CPowerbank = CGlobalObject:derive("CPowerbank")
+local PowerBank = CGlobalObject:derive("ISA_PowerBank_Client")
 
-function CPowerbank:new(luaSystem, globalObject)
+function PowerBank:new(luaSystem, globalObject)
     return CGlobalObject.new(self, luaSystem, globalObject)
 end
 
-function CPowerbank:fromModData(modData)
+function PowerBank:fromModData(modData)
     self.on = modData["on"]
     self.batteries = modData["batteries"]
     self.charge = modData["charge"]
@@ -21,7 +21,7 @@ function CPowerbank:fromModData(modData)
     self.conGenerator = modData["conGenerator"]
 end
 
-function CPowerbank:shouldDrain()
+function PowerBank:shouldDrain()
     local square = self:getSquare()
     if not self.on then return false end
     if self.conGenerator and self.conGenerator.ison then return false end
@@ -31,7 +31,7 @@ function CPowerbank:shouldDrain()
     return true
 end
 
-function CPowerbank:getPanelStatus(panel)
+function PowerBank:getPanelStatus(panel)
     local x,y,z = panel:getX(), panel:getY(), panel:getZ()
     if IsoUtils.DistanceToSquared(x, y, self.x, self.y) <= 400.0 and math.abs(z - self.z) <= 3 then
         for _,panel in ipairs(self.panels) do
@@ -44,12 +44,12 @@ function CPowerbank:getPanelStatus(panel)
 end
 
 ---checks the square for a panel object and returns the object and status
-function CPowerbank:getPanelStatusOnSquare(square)
-    local panel = ISA.WorldUtil.findTypeOnSquare(square,"Panel")
+function PowerBank:getPanelStatusOnSquare(square)
+    local panel = ISA.WorldUtil.findTypeOnSquare(square, "Panel")
     if panel ~= nil then
         return panel, square:isOutside() and self:getPanelStatus(panel) or "indoors"
     end
     return nil, ""
 end
 
-return CPowerbank
+return PowerBank

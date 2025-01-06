@@ -1,5 +1,5 @@
 require "ISUI/ISPanelJoypad"
-local isa = require "ImmersiveSolarArrays/ISAUtilities"
+local isa = require "ImmersiveSolarArrays/Utilities"
 
 local ISAWindowsSumaryTab = ISPanelJoypad:derive("ISAWindowsSumaryTab")
 

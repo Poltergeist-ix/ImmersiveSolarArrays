@@ -1,4 +1,4 @@
-local ISA = require "ImmersiveSolarArrays/ISAUtilities"
+local ISA = require "ImmersiveSolarArrays/Utilities"
 local RandomWorldSpawns = require "ImmersiveSolarArrays/World/RandomWorldSpawns"
 
 if isClient() then

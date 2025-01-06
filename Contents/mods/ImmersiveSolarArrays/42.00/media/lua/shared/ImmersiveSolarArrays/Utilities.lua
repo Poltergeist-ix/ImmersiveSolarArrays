@@ -5,13 +5,6 @@ local ISA = {}
 local _gameTime
 local _season
 
-ISA.maxBatteryCapacity = {
-    ["DeepCycleBattery"] = 200,
-    ["SuperBattery"] = 400,
-    ["WiredCarBattery"] = 50, --ModData
-    ["DIYBattery"] = 200,
-}
-
 ISA.patchClassMetaMethod = function(class, methodName, createPatch)
     local metatable = __classmetatables[class]
     if not metatable then
@@ -75,9 +68,5 @@ end)
 Events.OnInitSeasons.Add(function (season)
     _season = season
 end)
-
--- ---ISA global table
--- ImmersiveSolarArrays = {}
--- ImmersiveSolarArrays.util = util
 
 return ISA

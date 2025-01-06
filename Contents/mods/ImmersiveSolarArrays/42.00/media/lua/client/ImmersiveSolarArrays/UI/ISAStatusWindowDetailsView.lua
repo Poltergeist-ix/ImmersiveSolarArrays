@@ -1,6 +1,6 @@
 require "ISUI/ISPanelJoypad"
 require "ImmersiveSolarArrays/UI/ISAUI"
-local isa = require "ImmersiveSolarArrays/ISAUtilities"
+local isa = require "ImmersiveSolarArrays/Utilities"
 
 local rgbGood, rgbBad = isa.UI.rgbGood, isa.UI.rgbBad
 
@@ -43,7 +43,7 @@ function ISAWindowDetails:render()
     pb:updateFromIsoObject()
     local player = self.parent.parent.playerObj
     local canSee = self.parent.parent.square:getCanSee(self.parent.parent.player)
-    local area = isa.WorldUtil.getValidBackupArea(player)
+    local area = isa.WorldUtil.getValidBackupArea(player:getPerkLevel(Perks.Electricity))
     local validArea = IsoUtils.DistanceToSquared(player:getX(),player:getY(),player:getZ(),pb.x+0.5,pb.y+0.5,pb.z) <= area.distance and math.abs(player:getZ()-pb.z) <= area.levels
     if canSee and validArea or self.showDetails then
         local devices = pb:getSquare():getGenerator():getItemsPowered()

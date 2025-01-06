@@ -5,11 +5,15 @@
 require "Items/AcceptItemFunction"
 require "recipecode"
 
-local ISA = require("ImmersiveSolarArrays/ISAUtilities")
+local ISA = require("ImmersiveSolarArrays/Utilities")
 local Sandbox = SandboxVars.ISA
 local RecipeDef = {}
 
 function returnFalse() return false end
+
+local function roundToNumber(x, n)
+	return math.ceil(x / n - 0.5) * n
+end
 
 --- ISCraftAction:addOrDropItem
 local function addOrDrop(character, item)
@@ -24,12 +28,7 @@ local function addOrDrop(character, item)
 	end
 end
 
-local function roundCapacity(x)
-	return math.ceil(x / 5 - 0.5) * 5
-end
-
 AcceptItemFunction.ISA_Batteries = function(container, item)
-	-- if item:getModData().ISA_maxCapacity or isa.maxBatteryCapacity[item:getType()] then return true end
 	if item:getModData().ISA_maxCapacity ~= nil then return true end
 	return false
 end
@@ -60,7 +59,7 @@ function Recipe.OnCreate.ISA_wireCarBattery(items, result, player)
 			local qualityMod = math.min(11, ZombRand(9,11) + skillMod / 4) / 10
 			--local qualityMod = math.min(12, ZombRand(8,12) + skillMod / 3) / 10
 
-			resultData.ISA_maxCapacity = roundCapacity(batteryInfo.ah * qualityMod)
+			resultData.ISA_maxCapacity = roundToNumber(batteryInfo.ah * qualityMod, 5)
 			resultData.ISA_BatteryDegrade = batteryInfo.degrade / qualityMod
 			-- result:setCurrentUsesFloat(0)
 			result:setCurrentUsesFloat(carBattery:getCurrentUsesFloat())
@@ -104,7 +103,7 @@ function Recipe.OnCreate.ISA_createDiyBattery(items, result, player)
 	local sumCapacity = 0
 	for i=0, items:size()-1 do
 		local item = items:get(i)
-		local maxCapacity = item:getModData().ISA_maxCapacity or ISA.maxBatteryCapacity[item:getType()]
+		local maxCapacity = item:getModData().ISA_maxCapacity
 		if maxCapacity then
 			-- addUpDelta = addUpDelta + item:getCurrentUsesFloat()
 			sourceItems = sourceItems + 1
@@ -114,7 +113,7 @@ function Recipe.OnCreate.ISA_createDiyBattery(items, result, player)
 	end
 
 	local resultData = result:getModData()
-	resultData.ISA_maxCapacity = roundCapacity(sumCapacity * Sandbox.DIYBatteryMultiplier / 100)
+	resultData.ISA_maxCapacity = roundToNumber(sumCapacity * Sandbox.DIYBatteryMultiplier / 100, 5)
 
 	result:setCurrentUsesFloat(0)
 	--result:setCurrentUsesFloat(addUpDelta / tick)
