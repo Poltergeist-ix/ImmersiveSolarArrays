@@ -114,4 +114,31 @@ function Commands.countBatteries(player,args)
     end
 end
 
+function Commands.troubleshoot(player, args)
+    local pb = getPowerBank(args)
+    if not pb then return end
+
+    local isoPB = pb:getIsoObject()
+    if not isoPB then return end
+
+    -- remove invalid generators
+    local objects = pb:getIsoObject():getSquare():getSpecialObjects()
+    for i = objects:size() - 1, 0 , -1 do
+        local object = objects:get(i)
+        if instanceof(object, "IsoGenerator") and (object:getSprite() == nil or object:getModData().generatorFullType == "ISA.PowerBank_test") then
+            object:remove()
+        end
+    end
+
+    -- check battery items
+    pb:calculateBatteryStats(isoPB:getContainer())
+
+    -- remove old attached sprites
+    local attached = isoPB:getAttachedAnimSprite()
+    if attached then
+        attached:clear()
+    end
+    pb:updateSprite()
+end
+
 PBSystem.Commands = Commands
