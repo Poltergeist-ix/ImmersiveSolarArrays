@@ -31,6 +31,7 @@ module ISA
         cantBeConsolided = TRUE,
         ConditionMax = 100,
         WorldStaticModel = CarBattery,
+        DisappearOnUse = FALSE,
         ISA_maxCapacity = 200,
         ISA_BatteryDegrade = 0.033,
     }
@@ -45,6 +46,7 @@ module ISA
         cantBeConsolided = TRUE,
         ConditionMax = 100,
         WorldStaticModel = CarBattery,
+        DisappearOnUse = FALSE,
         ISA_maxCapacity = 400,
         ISA_BatteryDegrade = 0.033,
     }
@@ -59,6 +61,7 @@ module ISA
         cantBeConsolided = TRUE,
         ConditionMax = 100,
         WorldStaticModel = CarBattery,
+        DisappearOnUse = FALSE,
         ISA_maxCapacity = 50,
         ISA_BatteryDegrade = 8,
     }
@@ -73,6 +76,7 @@ module ISA
         cantBeConsolided = TRUE,
         ConditionMax = 100,
         WorldStaticModel = CarBattery,
+        DisappearOnUse = FALSE,
         ISA_maxCapacity = 200,
         ISA_BatteryDegrade = 0.125,
     }

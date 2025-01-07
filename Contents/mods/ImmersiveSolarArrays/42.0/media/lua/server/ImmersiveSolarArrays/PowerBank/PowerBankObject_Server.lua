@@ -358,16 +358,14 @@ function PowerBank:setAttachedSprite(spriteName)
             local attachedSprite = attached:get(i)
             local attachedName = attachedSprite:getName()
             if attachedName == spriteName then return end
-            if attachedName and string.find(attachedName, "^solarmod_tileset_01") then
-                attached:remove(attachedSprite)
+            if attachedName and string.find(attachedName, "^solarmod_tileset_01_") then
+                isoObject:RemoveAttachedAnim(i)
                 break
             end
         end
     end
-    local isoSprite = getSprite(spriteName)
-    isoSprite:setName(spriteName)
-    local spriteInstance = IsoSpriteInstance.get(isoSprite)
-    attached:add(spriteInstance)
+    if spriteName == nil then return end
+    attached:add(getSprite(spriteName):newInstance())
 end
 
 ---FIXME update

@@ -348,7 +348,6 @@ function ISA.Distributions.insertDistributions()
     -- ISA.Distributions = nil
 end
 
-
 --- remake distributions based on sandbox, used by stash items
 local function OnLoadedMapZones()
     if ItemPickerJava.doParse then

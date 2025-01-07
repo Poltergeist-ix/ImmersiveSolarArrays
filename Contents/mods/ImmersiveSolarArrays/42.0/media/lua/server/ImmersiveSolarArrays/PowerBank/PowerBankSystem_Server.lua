@@ -195,7 +195,7 @@ function PBSystem:onTransferItem(action, character, item, srcContainer, destCont
     local dst = destContainer:getParent()
     local remove = src ~= nil and ISA.WorldUtil.objectIsType(src, "PowerBank")
     local add = dst ~= nil and ISA.WorldUtil.objectIsType(dst, "PowerBank")
-    if not remove or not add then return end
+    if not (remove or add) then return end
 
     local capacity = maxCapacity * (1 - math.pow((1 - (item:getCondition()/100)),6))
     local charge = capacity * item:getCurrentUsesFloat()
@@ -235,7 +235,7 @@ function PBSystem.EveryDays()
             local inv = isopb:getContainer()
             pb:degradeBatteries(inv) ---TODO x days passed
             pb:calculateBatteryStats(inv)
-            isopb:sendObjectChange("containers")
+            -- isopb:sendObjectChange("containers")
         end
         pb:checkPanels()
     end
