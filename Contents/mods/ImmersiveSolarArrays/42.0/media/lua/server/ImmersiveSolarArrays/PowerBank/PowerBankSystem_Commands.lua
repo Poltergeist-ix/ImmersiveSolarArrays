@@ -130,15 +130,15 @@ function Commands.troubleshoot(player, args)
         end
     end
 
-    -- check battery items
-    pb:calculateBatteryStats(isoPB:getContainer())
-
     -- remove old attached sprites
     local attached = isoPB:getAttachedAnimSprite()
     if attached then
         attached:clear()
     end
+
+    pb:calculateBatteryStats(isoPB:getContainer())
     pb:updateSprite()
+    pb:saveData(true)
 end
 
 PBSystem.Commands = Commands

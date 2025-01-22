@@ -4,7 +4,7 @@ module ISA {
         time = 80,
         category = Electrical,
         needToBeLearn = true,
-        autoLearn = Electricity:4,
+        autoLearnAny = Electricity:4,
         skillRequired = Electricity:3,
         onCreate = Recipe.OnCreate.ISA_wireCarBattery,
         xpAward = Electricity:1,
@@ -23,7 +23,7 @@ module ISA {
         time = 80,
         category = Electrical,
         needToBeLearn = true,
-        autoLearn = Electricity:4,
+        autoLearnAny = Electricity:4,
         skillRequired = Electricity:3,
         onCreate = Recipe.OnCreate.ISA_unwireCarBattery,
         tags = AnySurfaceCraft,
@@ -59,7 +59,7 @@ module ISA {
         time = 120,
         category = Electrical,
         needToBeLearn = true,
-        autoLearn = Electricity:4,
+        autoLearnAny = Electricity:4,
         skillRequired = Electricity:3,
         tags = AnySurfaceCraft,
         inputs {
@@ -76,7 +76,7 @@ module ISA {
         time = 120,
         category = Electrical,
         needToBeLearn = true,
-        autoLearn = Electricity:4,
+        autoLearnAny = Electricity:4,
         skillRequired = Electricity:3,
         tags = AnySurfaceCraft,
         inputs {
@@ -95,7 +95,7 @@ module ISA {
         time = 120,
         category = Electrical,
         needToBeLearn = true,
-        autoLearn = Electricity:4,
+        autoLearnAny = Electricity:4,
         skillRequired = Electricity:3,
         tags = AnySurfaceCraft,
         inputs {
@@ -115,7 +115,7 @@ module ISA {
         time = 80,
         category = Electrical,
         needToBeLearn = true,
-        autoLearn = Electricity:4,
+        autoLearnAny = Electricity:4,
         skillRequired = Electricity:3,
         tags = AnySurfaceCraft,
         inputs {

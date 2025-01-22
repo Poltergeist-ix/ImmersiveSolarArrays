@@ -337,35 +337,23 @@ end
 
 function PowerBank:updateSprite(modCharge)
     local newSprite = self:getSpriteForOverlay(modCharge)
-    self:setAttachedSprite(newSprite)
-    -- local gen = self:getSquare():getGenerator()
-    -- if newsprite ~= gen:getSpriteName() then
-    --     gen:setSprite(newsprite)
-    --     gen:sendObjectChange("sprite")
-    -- end
-end
-
-function PowerBank:setAttachedSprite(spriteName)
     local isoObject = self:getIsoObject()
     local attached = isoObject:getAttachedAnimSprite()
-    if attached == nil and spriteName == nil then return end
-    -- elseif spriteName == nil then
-    if attached == nil then
-        attached = ArrayList.new(4)
-        isoObject:setAttachedAnimSprite(attached)
-    else
+
+    if attached ~= nil then
         for i = 0, attached:size() - 1 do
             local attachedSprite = attached:get(i)
             local attachedName = attachedSprite:getName()
-            if attachedName == spriteName then return end
+            if attachedName == newSprite then return end
             if attachedName and string.find(attachedName, "^solarmod_tileset_01_") then
                 isoObject:RemoveAttachedAnim(i)
                 break
             end
         end
     end
-    if spriteName == nil then return end
-    attached:add(getSprite(spriteName):newInstance())
+    if newSprite ~= nil then
+        isoObject:addAttachedAnimSpriteByName(newSprite)
+    end
 end
 
 ---FIXME update
